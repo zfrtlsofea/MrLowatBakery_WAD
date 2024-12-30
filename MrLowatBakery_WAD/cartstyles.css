@@ -1,0 +1,139 @@
+/* General styles */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fffaf0;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #ff6700;
+  color: white;
+  padding: 10px 20px;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 15px;
+  padding: 0;
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  padding: 2% 6%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links { /* Navigation links */
+  flex: 1;
+  text-align: right;
+}
+
+.nav-links ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 8px 12px;
+  position: relative;
+}
+
+ul li a i {
+  margin-right: 8px; /* Space between the icon and text */
+}
+
+ul li a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* ----- Cart Page Styling ----- */
+#cart-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 80%;
+  margin: auto;
+  text-align: left;
+  padding: 20px;
+}
+
+.cart-item {
+  background-color: #feead7;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item p {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+.cart-item button {
+  background-color: #ff6700;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart-item button:hover {
+  background-color: #e55c00;
+}
+
+.cart-item input {
+  width: 60px;
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Cart Total Section */
+#cart-total {
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+#cart-total p {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+}
+
+#cart-total button {
+  background-color: #ff6700;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#cart-total button:hover {
+  background-color: #e55c00;
+}
+
+/* ----- Footer Styling ----- */
+footer {
+  background: #ff6700;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: auto;
+}
