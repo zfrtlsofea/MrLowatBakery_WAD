@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History - Mr. Lowat Bakery</title>
+    <link rel="stylesheet" href="order.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<header>
+    <nav>
+        <h1>Mr. Lowat Bakery</h1>
+        <div class="nav-links">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="menu.html"><i class="fas fa-cake"></i>Menu</a></li>
+                <li><a href="https://api.whatsapp.com/send/?phone=60164025451"><i class="fas fa-phone"></i>Contact</a></li>
+                <li><a href="cart.html"><i class="fas fa-shopping-cart"></i>Cart</a></li>
+                <li><a href="setting.html"><i class="fas fa-user"></i>Account</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <div class="order-container">
+        <h1>Order History</h1>
+
+        <!-- Current Orders Section -->
+        <section class="orders-section">
+            <h2>Current Orders</h2>
+            <div class="order-card">
+                <div class="order-info">
+                    <h3>Order #001</h3>
+                    <p>Status: <span class="status-pending">Pending</span></p>
+                    <p>Order Date: 2024-12-30</p>
+                </div>
+                <div class="order-summary">
+                    <p><strong>Items:</strong> Chocolate Cake, Vanilla Cupcake</p>
+                    <p><strong>Total:</strong> $20.00</p>
+                    <button class="btn-track">Track Order</button>
+                </div>
+            </div>
+
+            <!-- Another Current Order Example -->
+            <div class="order-card">
+                <div class="order-info">
+                    <h3>Order #002</h3>
+                    <p>Status: <span class="status-shipped">Shipped</span></p>
+                    <p>Order Date: 2024-12-28</p>
+                </div>
+                <div class="order-summary">
+                    <p><strong>Items:</strong> Strawberry Tart, Chocolate Chip Cookies</p>
+                    <p><strong>Total:</strong> $15.50</p>
+                    <button class="btn-track">Track Order</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Past Orders Section -->
+        <section class="orders-section">
+            <h2>Past Orders</h2>
+
+            <div class="order-card">
+                <div class="order-info">
+                    <h3>Order #003</h3>
+                    <p>Status: <span class="status-completed">Completed</span></p>
+                    <p>Order Date: 2024-12-15</p>
+                </div>
+                <div class="order-summary">
+                    <p><strong>Items:</strong> Fruit Tart, Cupcakes</p>
+                    <p><strong>Total:</strong> $12.00</p>
+                </div>
+            </div>
+
+            <!-- Another Past Order -->
+            <div class="order-card">
+                <div class="order-info">
+                    <h3>Order #004</h3>
+                    <p>Status: <span class="status-completed">Completed</span></p>
+                    <p>Order Date: 2024-12-10</p>
+                </div>
+                <div class="order-summary">
+                    <p><strong>Items:</strong> Red Velvet Cake, Muffins</p>
+                    <p><strong>Total:</strong> $18.00</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Mr. Lowat Bakery. All rights reserved.</p>
+</footer>
+
+<script src="scripts.js"></script>
+</body>
+</html>
