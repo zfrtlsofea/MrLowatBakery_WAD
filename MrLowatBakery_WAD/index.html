@@ -1,87 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - Mr. Lowat Bakery</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file (styles.css)-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Load an icon library -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Mr. Lowat Bakery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        header {
+            background-color: #ff6700;
+            padding: 10px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+            display: flex;
+        }
+
+        header .search-bar input {
+            width: 100%;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        header .icon-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        header .icon-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header .icon-links i {
+            font-size: 1.5rem;
+        }
+
+        header .icon-links span {
+            font-size: 0.75rem;
+        }
+
+        /* Layout Styling */
+        .container {
+            display: flex;
+            height: calc(100vh - 50px); 
+        }
+
+        .left-section {
+            width: 20%;
+            background-color: #f7f7f7;
+            padding: 10px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .middle-section {
+            width: 50%;
+            padding: 10px;
+        }
+
+        .right-section {
+            width: 30%;
+            background-color: #f7f7f7;
+            padding: 10px;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .featured-items img {
+            width: 45%;
+            max-width: 150px;
+            border-radius: 8px;
+        }
+
+        .cart {
+            font-size: 0.9rem;
+        }
+
+        /* Popup Styling */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .popup-content h2 {
+            margin-bottom: 10px;
+        }
+
+        .popup-content p {
+            margin-bottom: 20px;
+        }
+
+        .popup-close {
+            background: #ff6700;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .popup-close:hover {
+            background: #e55c00;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <nav>
-        <h1>Mr. Lowat Bakery</h1>
-        <div class="nav-links">
-          <ul> <justify-content: right> </justify-content: right>
-            <li><a href="index.html"><i class="fas fa-home"></i>Home</a> </li>
-           <li><a href="menu.html"><i class="fas fa-cake"></i>Menu</a></li>
-           <li><a href="https://api.whatsapp.com/send/?phone=60164025451"><i class="fas fa-phone"></i>Contact</a></li>
-           <li><a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a></li>
-          </ul>
+<header>
+    <h1>Mr. Lowat Bakery</h1>
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search for categories...">
+        <div class="dropdown" id="categoryDropdown"></div>
+    </div>
+    <div class="icon-links">
+        <a href="#" id="about-us-btn">
+            <i class="fas fa-info-circle"></i>
+            <span>About Us</span>
+        </a>
+        <a href="#" id="contact-btn">
+            <i class="fas fa-phone-alt"></i>
+            <span>Contact</span>
+        </a>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Left Section -->
+    <div class="left-section">
+        <h3>Navigation</h3>
+        <button class="nav-btn" onclick="location.href='profile.html'"><i class="fas fa-user"></i> Profile</button>
+        <button id="menu-category-btn" class="nav-btn dropdown-btn"><i class="fas fa-cake"></i> Menu Category</button>
+        <div id="menu-category-dropdown" class="dropdown-content">
+            <button onclick="showCategory('cake')" class="light-orange">Cake</button>
+            <button onclick="showCategory('cupcake')" class="light-orange">Cupcake</button>
+            <button onclick="showCategory('tart')" class="light-orange">Tart</button>
+            <button onclick="showCategory('brownies')" class="light-orange">Brownies</button>
+            <button onclick="showCategory('burnedCheesecake')" class="light-orange">Burned Cheesecake</button>
+            <button onclick="showCategory('promotion')" class="light-orange">Special Promotion</button>
+        </div>        
+        <button class="nav-btn" onclick="location.href='cart.html'"><i class="fas fa-shopping-cart"></i> Cart</button>
+        <button class="nav-btn" onclick="location.href='orders.html'"><i class="fas fa-receipt"></i> My Orders</button>
+    </div>
+
+    <!-- Middle Section --> 
+    <div class="middle-section">
+        <h2>Featured Items</h2>
+        <div class="featured-items">
+            <div class="featured-item">
+                <img src="images/feature_cupcake2.jpg" alt="Cupcakes">
+                <h3 style="font-size: 1rem;">Cupcakes</h3>
+                <p style="font-size: 0.9rem;">Delicious, moist cupcakes available in various flavors.</p>
+            </div>
+            <div class="featured-item">
+                <img src="images/feature_brownies.jpg" alt="Brownies">
+                <h3 style="font-size: 1rem;">Brownies</h3>
+                <p style="font-size: 0.9rem;">Rich, chocolatey brownies with a chewy texture.</p>
+            </div>
+            <div class="featured-item">
+                <img src="images/feature_cake.jpg" alt="Cake">
+                <h3 style="font-size: 1rem;">Cake</h3>
+                <p style="font-size: 0.9rem;">Moist and flavorful cakes perfect for celebrations.</p>
+            </div>
+            <div class="featured-item">
+                <img src="images/feature_tart.jpg" alt="Tart">
+                <h3 style="font-size: 1rem;">Tart</h3>
+                <p style="font-size: 0.9rem;">Crispy pastry filled with sweet or savory fillings.</p>
+            </div>
         </div>
-    </nav>
-  </header>
 
-  <main>
-    <section class="hero">
-      <h1 style="color: rgb(249, 168, 39);">Welcome to Mr. Lowat Bakery</h1>
-      <p>Discover our delicious range of freshly baked goods.</p>
-      <img src="images/banner.jpg" alt="Mr. Lowat Bakery" width="700" height= auto >
-    </section>
+        <!-- Order More Section -->
+        <h2>Order More</h2>
+        <div class="category-list">
+            <!-- Mini Cupcakes -->
+            <div class="order-more-item">
+                <img src="images/mini_cupcakes.jpg" alt="Mini Cupcakes" class="order-more-image">
+                <div class="order-more-details">
+                    <h3>Mini Cupcakes 16 pcs</h3>
+                    <p>Flavors: Vanilla, Chocolate, Red Velvet, Pandan, with choices of cream.</p>
+                </div>
+                <button class="customize-btn" onclick="redirectToCustomizeOrder('Mini Cupcakes 16 pcs')">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
 
-    <!-- About Us -->
-    <section class="about">
-      <h2 style="color:rgb(249, 168, 39);">About Us</h2>
-      <p>Mr. Lowat Bakery is a home-based and family-owned bakery that has been serving the community for years. 
-        We offer a wide range of freshly baked goods, including brownies, cheese tarts, cakes, and cupcakes. Our products are made with the finest ingredients and are baked fresh daily. Whether you're looking for a sweet treat or a snack, we have something for everyone. Visit us today and experience the delicious taste of Mr. Lowat Bakery.</p>
-    </section>
-    
-<!-- Featured Products -->
-<section class="featured">
-  <h2 style="color:rgb(249, 168, 39);">Featured Products</h2>
+            <!-- 6 Inch Brownies -->
+            <div class="order-more-item">
+                <img src="images/brownies_6inch.jpg" alt="6 Inch Brownies" class="order-more-image">
+                <div class="order-more-details">
+                    <h3>6 Inch Brownies</h3>
+                    <p>Various topping choices and can add on your own deco/topper.</p>
+                </div>
+                <button class="customize-btn" onclick="redirectToCustomizeOrder('6 Inch Brownies')">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
 
-  <!-- Wrap all product boxes in one row -->
-  <div class="row">
-    <div class="feat-column">
-      <img src="images/feature_tart.jpg" alt="Cheese Tart">
-      <h3>Classic Cheese Tart</h3>
-      <p>Our creamy buttery cheese tarts are the perfect way to start your day. Made with premium cream cheese and baked to perfection, our cheese tarts are a delicious treat that you won't be able to resist.</p>
+            <!-- Tiered Sponge Cake -->
+            <div class="order-more-item">
+                <img src="images/tiered_sponge_cake.jpg" alt="Tiered Sponge Cake" class="order-more-image">
+                <div class="order-more-details">
+                    <h3>Tiered Sponge Cake</h3>
+                    <p>A beautifully layered sponge cake, perfect for any celebration.</p>
+                </div>
+                <button class="customize-btn" onclick="redirectToCustomizeOrder('Tiered Sponge Cake')">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+            <!-- Mini Cheese Tart -->
+            <div class="order-more-item">
+                <img src="images/mini_cheese_tart.jpg" alt="Mini Cheese Tart" class="order-more-image">
+                <div class="order-more-details">
+                    <h3>Mini Cheese Tart</h3>
+                    <p>Original, Nutella topping, Cadbury topping, Mix and match options available.</p>
+                </div>
+                <button class="customize-btn" onclick="redirectToCustomizeOrder('Mini Cheese Tart')">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div class="feat-column">
-      <img src="images/feature_bitesize2.jpg" alt="Bite-Sized Cakes">
-      <h3>Bite-Sized Cakes</h3>
-      <p>Our bite-sized cakes are made with the finest ingredients and are available in a variety of flavors and designs. Whether you're celebrating a birthday, anniversary, or any special occasion, our cakes are the perfect way to sweeten the moment.</p>
+    <!-- Right Section --> 
+    <div class="right-section">
+        <h2>Real-Time Cart</h2>
+        <div class="cart-items" id="right-cart-items">
+            <!-- Cart items will be dynamically rendered here -->
+        </div>
+        <div class="cart-total">
+            <h4>Total:</h4>
+            <p id="right-cart-total">$0.00</p>
+        </div>
+        <button class="checkout-btn" onclick="redirectToCart()">Proceed to Checkout</button>
     </div>
+</div>
 
-    <div class="feat-column">
-      <img src="images/feature_cupcake.jpg" alt="Cupcakes">
-      <h3>Cupcakes</h3>
-      <p>Our cupcakes are baked fresh and are available in a variety of flavors and toppings, including vanilla, chocolate, red velvet, and pandan. Made with the finest ingredients, our cupcakes are a delicious treat that you'll want to enjoy again and again.</p>
+<!-- About Us Popup -->
+<div class="popup-overlay" id="about-us-popup">
+    <div class="popup-content">
+        <h2>About Us</h2>
+        <p>Mr. Lowat Bakery is a home-based and family-owned bakery that has been serving the community for years.
+            We offer a wide range of freshly baked goods, including brownies, cheese tarts, cakes, and cupcakes. Our products are made with the finest ingredients and are baked fresh daily. Whether you're looking for a sweet treat or a snack, we have something for everyone. Visit us today and experience the delicious taste of Mr. Lowat Bakery.</p>
+        <button class="popup-close" onclick="closePopup('about-us-popup')">Close</button>
     </div>
-  </div>
-</section>
+</div>
 
-    <!-- Get in Touch -->
-     <section class="in-touch">
-      <h2 style="color:rgb(249, 168, 39);">Get in Touch</h2> 
-      <p>Phone: 016 - 402 5451
-        <a href="https://api.whatsapp.com/send/?phone=60164025451">(<i class="fa-brands fa-square-whatsapp"></i>Whatsapp)</a>
-      </p>
-      
+<!-- Contact Popup -->
+<div class="popup-overlay" id="contact-popup">
+    <div class="popup-content">
+        <h2>Contact</h2>
+        <p>Phone: 016-402-5451</p>
+        <p><a href="https://api.whatsapp.com/send/?phone=60164025451" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></p>
+        <p>
+            Follow us on social media:
+            <a href="https://www.facebook.com/mrlowatbakery/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>,
+            <a href="https://www.instagram.com/mrlowatbake/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        </p>
+        <button class="popup-close" onclick="closePopup('contact-popup')">Close</button>
+    </div>
+</div>
 
-      
-      <p>Follow us on social media:</p> 
-      <a href="https://www.facebook.com/mrlowatbakery/" target="_
-      blank"><i class="fa-brands fa-facebook"></i>Facebook</a>
-      <a href="https://www.instagram.com/mrlowatbake/" target="_blank"><i class="fa-brands fa-instagram"></i>Instagram</a>
-    </section>
-  </main>
+<script>
+    // Open popup
+    document.getElementById('about-us-btn').addEventListener('click', function () {
+        document.getElementById('about-us-popup').style.display = 'flex';
+    });
 
-<!-- Footer -->
-  <footer>
-    <p>&copy; 2024 Mr. Lowat Bakery. All rights reserved.</p>
-  </footer>
+    document.getElementById('contact-btn').addEventListener('click', function () {
+        document.getElementById('contact-popup').style.display = 'flex';
+    });
+
+    // Close popup
+    function closePopup(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+</script>
+
+<script>
+    const searchBar = document.getElementById('searchBar');
+    const dropdown = document.getElementById('categoryDropdown');
+    const categories = {
+    cake: [
+        { name: "Tiered Sponge Cake", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg" },
+        { name: "Apam @ Moist Cake", description: "Soft, moist cake with a traditional touch.", image: "images/apam_cake.jpg" },
+        { name: "Bite Size Cake", description: "Small, flavorful cakes for bite-sized enjoyment.", image: "images/bite_size_cake.jpg" },
+        { name: "Sponge Cake Simple Decoration", description: "Classic sponge cake with a simple and elegant decoration.", image: "images/simple_sponge_cake.jpg" }
+    ],
+    cupcake: [
+        { name: "Mini Cupcakes 16 pieces", description: "Flavors: Vanilla, Chocolate, Red Velvet, Pandan, with choices of cream.", image: "images/mini_cupcakes.jpg" },
+        { name: "Mini Size Cupcakes 25 pieces", description: "Flavors: Vanilla, Chocolate, Red Velvet, Pandan, with choices of cream.", image: "images/mini_cupcakes_25.jpg" },
+        { name: "Normal Cupcakes 16 pieces", description: "Flavors: Vanilla, Chocolate, Red Velvet, Pandan, with choices of cream.", image: "images/normal_cupcakes.jpg" },
+        { name: "Normal Size Cupcakes 25 pieces", description: "Flavors: Vanilla, Chocolate, Red Velvet, Pandan, with choices of cream.", image: "images/normal_cupcakes_25.jpg" }
+    ],
+    tart: [
+        { name: "Mini Cheese Tart (Montok Budget Set)", description: "Original, Nutella topping, Cadbury topping, Mix and match options available.", image: "images/mini_cheese_tart.jpg" },
+        { name: "Mini Cheese Tart (Fruity Fillings)", description: "Choose your favourite fruit fillings.", image: "images/mini_cheese_tart_25.jpg" },
+        { name: "Giant Cheese Tart (6 inch - with Mini Tart Set)", description: "Includes mini tarts.", image: "images/giant_cheese_tart.jpg" },
+        { name: "Giant Cheese Tart (7 inch - with Mini Tart Set)", description: "Includes mini tarts.", image: "images/giant_cheese_tart_7inch.jpg" }
+    ],
+    brownies: [
+        { name: "6 Inch Brownies", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_6inch.jpg" },
+        { name: "8 Inch Brownies", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg" }
+    ],
+    burnedCheesecake: [
+        { name: "Classic Burned Cheesecake", description: "Rich and creamy cheesecake with a caramelized top.", image: "images/burnt_cheesecake_6inch.jpg" }
+    ],
+    promotion: [
+        { name: "Dessert Table Package A", description: "Combination of Mini Cheese Tart, Moist Cake, Burnt Cheesecake, and Mini Cupcakes at a discounted price.", image: "images/promotionA.jpg" },
+        { name: "Dessert Table Package B", description: "Combination of Sponge Cake, Mini Cheese Tart, Cream Puff, and Roti Sosej at a discounted price.", image: "images/promotionB.jpg" },
+        { name: "Dessert Table Package C", description: "Combination of Sponge Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionC.jpg" },
+        { name: "Dessert Table Package D", description: "Combination of Bite-size Cake, Moist Cake, Burnt Cheesecake, and Mini Cupcakes at a discounted price.", image: "images/promotionD.jpg" },
+        { name: "Dessert Table Package E", description: "Combination of Mini Cheese Tart, Bite-size Cake, Cream Puff, and Fruit Tart at a discounted price.", image: "images/promotionE.jpg" },
+        { name: "Dessert Table Package F", description: "Combination of Sponge Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionF.jpg" },
+        { name: "Dessert Table Package G", description: "Combination of Bite-size Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionG.jpg" },
+        { name: "Dessert Table Package H", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionH.jpg" },
+        { name: "Dessert Table Package I", description: "Combination of Mini Cheese Tart, Brownies, Cream Puff, and Roti Sosej at a discounted price.", image: "images/promotionI.jpg" },
+        { name: "Dessert Table Package J", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionJ.jpg" },
+        { name: "Dessert Table Package K", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionK.jpg" },
+        { name: "Dessert Table Package L", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionL.jpg" },
+        { name: "Dessert Table Package M", description: "Combination of Mini Cheese Tart, Brownies, Cream Puff, and Roti Sosej at a discounted price.", image: "images/promotionM.jpg" },
+        { name: "Dessert Table Package N", description: "Combination of Brownies, Fruit Tart, Cheese Tart, and Roti Sosej at a discounted price.", image: "images/promotionN.jpg" },
+        { name: "Dessert Table Package O", description: "Combination of Mini Cheese Tart, Brownies, and Cream Puff at a discounted price.", image: "images/promotionO.jpg" },
+        { name: "Dessert Table Package P", description: "Combination of Bite-size Cake, Moist Cake, and Cream Puff at a discounted price.", image: "images/promotionP.jpg" },
+        { name: "Dessert Table Package Q", description: "Combination of Bite-size Cake, Fruit Tart, and Cream Puff at a discounted price.", image: "images/promotionQ.jpg" },
+        { name: "Dessert Table Package R", description: "Combination of Brownies, Fruit Tart, and Cream Puff at a discounted price.", image: "images/promotionR.jpg" }
+    ]
+};
+
+searchBar.addEventListener('input', function() {
+    const searchValue = searchBar.value.toLowerCase();
+    dropdown.innerHTML = ''; 
+
+    if (searchValue) {
+        const filteredCategories = Object.keys(categories).filter(key =>
+            categories[key].some(item => item.name.toLowerCase().includes(searchValue))
+        );
+
+        filteredCategories.forEach(category => {
+            categories[category].forEach(item => {
+                if (item.name.toLowerCase().includes(searchValue)) {
+                    const div = document.createElement('div');
+                    div.textContent = item.name;
+                    div.classList.add('dropdown-item');
+                    div.style.color = 'orange'; // Change font color to orange
+
+                    const plusButton = document.createElement('button');
+                    plusButton.textContent = '+';
+                    plusButton.classList.add('plus-btn');
+                    plusButton.addEventListener('click', () => navigateToCategory(category));
+                    div.appendChild(plusButton);
+
+                    dropdown.appendChild(div);
+                }
+            });
+        });
+
+        dropdown.style.display = 'block'; // Show dropdown
+    } else {
+        dropdown.style.display = 'none'; // Hide dropdown if search bar is empty
+    }
+});
+
+// Function to navigate to the selected category in the middle section
+function navigateToCategory(categoryName) {
+    const middleSection = document.getElementById('middleSection');
+    const selectedCategory = categories[categoryName.toLowerCase()];
+
+    middleSection.innerHTML = `<h2>${categoryName}</h2>`;
+
+    selectedCategory.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product-item');
+        productDiv.innerHTML = `
+            <img src="images/${product.name.toLowerCase().replace(/ /g, '_')}.jpg" alt="${product.name}">
+            <h3>${product.name}</h3>
+        `;
+        middleSection.appendChild(productDiv);
+    });
+}
+
+    function showCategory(category) {
+        const items = categories[category] || [];
+        const middleSection = document.querySelector('.middle-section');
+        middleSection.innerHTML = `
+            <h2>${category.charAt(0).toUpperCase() + category.slice(1)}s</h2>
+            <div class="category-list">
+                ${items.map(item => `
+                    <div class="category-item">
+                        <img src="${item.image}" alt="${item.name}" class="category-image">
+                        <div class="category-details">
+                            <h3>${item.name}</h3>
+                            <p>${item.description}</p>
+                        </div>
+                        <button class="customize-btn" onclick="redirectToCustomizeOrder('${item.name}')">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    function redirectToCustomizeOrder(itemName) {
+        window.location.href = `customize_order.html?item=${encodeURIComponent(itemName)}`;
+    }
+</script>
+
 </body>
 </html>
