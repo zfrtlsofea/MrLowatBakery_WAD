@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Mr. Lowat Bakery</title>
+    <link rel="stylesheet" href="adminhomepage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Mr. Lowat Bakery</div>
+    <div class="icon-links">
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Left Section (Sidebar) -->
+    <div class="left-section">
+        <h3>Admin Dashboard</h3>
+        <button class="nav-btn" onclick="showProfile()">Profile</button>
+        <button class="nav-btn" onclick="showOrders()">Orders</button>
+        <button class="nav-btn" onclick="showProducts()">Products</button>
+    </div>
+
+    <!-- Middle Section (Content) -->
+    <div class="middle-section">
+        <!-- Menu Section (This will be displayed first) -->
+        <div class="menu-content section-content">
+            <h2 class="section-title">Welcome to the Admin Dashboard</h2>
+            <p>Click on the options from the left sidebar to manage the bakery.</p>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="profile-content section-content" style="display: none;">
+            <h2 class="section-title">Profile</h2>
+            <div class="profile-card">
+                <form id="profile-form">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" value="admin@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" value="password123">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Contact Number</label>
+                        <input type="text" id="contact" name="contact" value="0123456789">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Address</label>
+                        <input type="text" id="address" name="address" value="123, Jalan Kuching">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div class="orders-content section-content" style="display: none;">
+            <h2 class="section-title">Orders</h2>
+
+            <!-- Order List Table -->
+            <div class="order-list">
+                <h3>Order List</h3>
+                <table id="order-table">
+                    <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>John Doe</td>
+                        <td>2025-01-02</td>
+                        <td>Not Paid</td>
+                        <td><button onclick="viewOrderDetails(1)">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Jane Smith</td>
+                        <td>2025-01-01</td>
+                        <td>Paid</td>
+                        <td><button onclick="viewOrderDetails(2)">View</button></td>
+                    </tr>
+                    <!-- Add more rows dynamically as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Order Details (Hidden until an order is clicked) -->
+            <div class="order-details" id="order-details" style="display: none;">
+                <h3>Order Details</h3>
+                <div class="order-actions">
+
+                </div>
+                <!-- Customer Information -->
+                <div class="customer-details">
+                    <h4>Customer Information</h4>
+                    <p><strong>Customer Name:</strong> <span id="customer-name"></span></p>
+                    <p><strong>Email:</strong> <span id="customer-email"></span></p>
+                    <p><strong>Contact Number:</strong> <span id="customer-contact"></span></p>
+                    <p><strong>Delivery Address:</strong> <span id="customer-address"></span></p>
+                </div>
+
+                <!-- Order Items -->
+                <div class="order-items">
+                    <h4>Order Items</h4>
+                    <table id="order-items-table">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Chocolate Cake</td>
+                            <td>2</td>
+                            <td>$15.00</td>
+                            <td>$30.00</td>
+                        </tr>
+                        <tr>
+                            <td>Vanilla Cupcake</td>
+                            <td>3</td>
+                            <td>$5.00</td>
+                            <td>$15.00</td>
+                        </tr>
+                        <!-- Add more rows dynamically as needed -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Payment Information -->
+                <div class="payment-details">
+                    <h4>Payment Information</h4>
+                    <p><strong>Payment Method:</strong> Credit Card</p>
+                    <p><strong>Transaction ID:</strong> 1234567890</p>
+                    <p><strong>Amount Paid:</strong> $45.00</p>
+                </div>
+
+                <!-- Shipping Information -->
+                <div class="shipping-details">
+                    <h4>Shipping Information</h4>
+                    <p><strong>Shipping Method:</strong> Standard Shipping</p>
+                    <p><strong>Tracking Number:</strong> ABC123456789</p>
+                    <p><strong>Shipping Status:</strong> In Transit</p>
+                </div>
+
+                <!-- Order Status -->
+                <div class="order-status">
+                    <h4>Order Status: <span id="order-status"></span></h4>
+                    <button id="toggle-status" onclick="toggleOrderStatus()">Mark as Shipped</button>
+                </div>
+
+                <!-- Back Button -->
+                <button onclick="backToOrderList()">Back to Order List</button>
+            </div>
+        </div>
+
+        <script>
+            // Simulate Order Data
+            const orders = [
+                {
+                    orderId: 1,
+                    customerName: 'John Doe',
+                    customerEmail: 'johndoe@example.com',
+                    customerContact: '0123456789',
+                    customerAddress: '123, Jalan ABC',
+                    orderDate: '2025-01-02',
+                    paymentStatus: 'Not Paid',
+                    items: [
+                        { name: 'Chocolate Cake', quantity: 2, price: 15.00 },
+                        { name: 'Vanilla Cupcake', quantity: 3, price: 5.00 }
+                    ],
+                    paymentMethod: 'Credit Card',
+                    transactionId: '1234567890',
+                    amountPaid: 45.00,
+                    shippingMethod: 'Standard Shipping',
+                    trackingNumber: 'ABC123456789',
+                    shippingStatus: 'In Transit',
+                    orderStatus: 'Pending'
+                },
+                {
+                    orderId: 2,
+                    customerName: 'Jane Smith',
+                    customerEmail: 'janesmith@example.com',
+                    customerContact: '0198765432',
+                    customerAddress: '456, Jalan XYZ',
+                    orderDate: '2025-01-01',
+                    paymentStatus: 'Paid',
+                    items: [
+                        { name: 'Red Velvet Cake', quantity: 1, price: 20.00 }
+                    ],
+                    paymentMethod: 'PayPal',
+                    transactionId: '0987654321',
+                    amountPaid: 20.00,
+                    shippingMethod: 'Express Shipping',
+                    trackingNumber: 'XYZ987654321',
+                    shippingStatus: 'Shipped',
+                    orderStatus: 'Shipped'
+                }
+            ];
+
+            // View Order Details Function
+            function viewOrderDetails(orderId) {
+                const order = orders.find(o => o.orderId === orderId);
+
+                if (order) {
+                    // Display customer details
+                    document.getElementById('customer-name').textContent = order.customerName;
+                    document.getElementById('customer-email').textContent = order.customerEmail;
+                    document.getElementById('customer-contact').textContent = order.customerContact;
+                    document.getElementById('customer-address').textContent = order.customerAddress;
+
+                    // Display order items
+                    let itemsHTML = '';
+                    order.items.forEach(item => {
+                        itemsHTML += `
+                            <tr>
+                                <td>${item.name}</td>
+                                <td>${item.quantity}</td>
+                                <td>$${item.price}</td>
+                                <td>$${(item.price * item.quantity).toFixed(2)}</td>
+                            </tr>
+                        `;
+                    });
+                    document.getElementById('order-items-table').querySelector('tbody').innerHTML = itemsHTML;
+
+                    // Display payment details
+                    document.querySelector('.payment-details').innerHTML = `
+                        <h4>Payment Information</h4>
+                        <p><strong>Payment Method:</strong> ${order.paymentMethod}</p>
+                        <p><strong>Transaction ID:</strong> ${order.transactionId}</p>
+                        <p><strong>Amount Paid:</strong> $${order.amountPaid.toFixed(2)}</p>
+                    `;
+
+                    // Display shipping details
+                    document.querySelector('.shipping-details').innerHTML = `
+                        <h4>Shipping Information</h4>
+                        <p><strong>Shipping Method:</strong> ${order.shippingMethod}</p>
+                        <p><strong>Tracking Number:</strong> ${order.trackingNumber}</p>
+                        <p><strong>Shipping Status:</strong> ${order.shippingStatus}</p>
+                    `;
+
+                    // Display order status and toggle button
+                    document.getElementById('order-status').textContent = order.orderStatus;
+                    document.getElementById('toggle-status').textContent = order.orderStatus === 'Shipped' ? 'Mark as Pending' : 'Mark as Shipped';
+
+                    // Show the order details section
+                    document.querySelector('.order-list').style.display = 'none';
+                    document.getElementById('order-details').style.display = 'block';
+                }
+            }
+
+            // Toggle Order Status
+            function toggleOrderStatus() {
+                const orderId = 1; // Example order ID for simplicity
+                const order = orders.find(o => o.orderId === orderId);
+
+                if (order.orderStatus === 'Pending') {
+                    order.orderStatus = 'Shipped';
+                    document.getElementById('order-status').textContent = 'Shipped';
+                    document.getElementById('toggle-status').textContent = 'Mark as Pending';
+                } else {
+                    order.orderStatus = 'Pending';
+                    document.getElementById('order-status').textContent = 'Pending';
+                    document.getElementById('toggle-status').textContent = 'Mark as Shipped';
+                }
+            }
+
+            // Return to Order List
+            function backToOrderList() {
+                document.querySelector('.order-list').style.display = 'block';
+                document.getElementById('order-details').style.display = 'none';
+            }
+        </script>
+
+        <!-- Products Section (Initially hidden) -->
+        <div class="products-content section-content" style="display: none;">
+            <h2 class="section-title">Products</h2>
+            <p>Manage bakery products here.</p>
+        </div>
+
+        <!-- Users Section (Initially hidden) -->
+        <div class="users-content section-content" style="display: none;">
+            <h2 class="section-title">Users</h2>
+            <p>Manage users here.</p>
+        </div>
+    </div>
+</div>
+<script>
+    // Logout function
+    function logout() {
+        alert('Logged out successfully!');
+        window.location.href = 'index.html'; // Redirect to homepage
+    }
+
+    // Function to show Profile Section
+    function showProfile() {
+        resetSections();
+        document.querySelector('.profile-content').style.display = 'block';
+    }
+
+    // Function to show Orders Section
+    function showOrders() {
+        resetSections();
+        document.querySelector('.orders-content').style.display = 'block';
+    }
+
+    // Function to show Products Section
+    function showProducts() {
+        resetSections();
+        document.querySelector('.products-content').style.display = 'block';
+    }
+
+    // Function to show Users Section
+    function showUsers() {
+        resetSections();
+        document.querySelector('.users-content').style.display = 'block';
+    }
+
+    // Reset all sections visibility
+    function resetSections() {
+        const sections = document.querySelectorAll('.section-content');
+        sections.forEach(section => {
+            section.style.display = 'none';
+        });
+    }
+
+    // Display Menu Section first
+    window.onload = function() {
+        resetSections();
+        document.querySelector('.menu-content').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
