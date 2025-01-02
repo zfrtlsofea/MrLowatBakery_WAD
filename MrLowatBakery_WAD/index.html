@@ -145,7 +145,7 @@
 <header>
     <h1>Mr. Lowat Bakery</h1>
     <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Search for categories...">
+        <input type="text" id="searchBar" placeholder="Search for items...">
         <div class="dropdown" id="categoryDropdown"></div>
     </div>
     <div class="icon-links">
@@ -315,6 +315,7 @@
 <script>
     const searchBar = document.getElementById('searchBar');
     const dropdown = document.getElementById('categoryDropdown');
+    const middleSection = document.getElementById("middleSection");
     const categories = {
     cake: [
         { name: "Tiered Sponge Cake", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg" },
@@ -339,7 +340,7 @@
         { name: "8 Inch Brownies", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg" }
     ],
     burnedCheesecake: [
-        { name: "Classic Burned Cheesecake", description: "Rich and creamy cheesecake with a caramelized top.", image: "images/burnt_cheesecake_6inch.jpg" }
+        { name: "Classic Burnt Cheesecake", description: "Rich and creamy cheesecake with a caramelized top.", image: "images/burnt_cheesecake_6inch.jpg" }
     ],
     promotion: [
         { name: "Dessert Table Package A", description: "Combination of Mini Cheese Tart, Moist Cake, Burnt Cheesecake, and Mini Cupcakes at a discounted price.", image: "images/promotionA.jpg" },
@@ -363,37 +364,52 @@
     ]
 };
 
-searchBar.addEventListener('input', function() {
-    const searchValue = searchBar.value.toLowerCase();
-    dropdown.innerHTML = ''; 
+   // Function to filter and display search results
+searchBar.addEventListener("input", function () {
+    const query = searchBar.value.toLowerCase().trim();
+    dropdown.innerHTML = ""; // Clear previous results
 
-    if (searchValue) {
-        const filteredCategories = Object.keys(categories).filter(key =>
-            categories[key].some(item => item.name.toLowerCase().includes(searchValue))
-        );
+    if (query === "") {
+        dropdown.style.display = "none"; // Hide dropdown if query is empty
+        return;
+    }
 
-        filteredCategories.forEach(category => {
-            categories[category].forEach(item => {
-                if (item.name.toLowerCase().includes(searchValue)) {
-                    const div = document.createElement('div');
-                    div.textContent = item.name;
-                    div.classList.add('dropdown-item');
-                    div.style.color = 'orange'; // Change font color to orange
+    dropdown.style.display = "block"; // Show dropdown
+    let found = false;
 
-                    const plusButton = document.createElement('button');
-                    plusButton.textContent = '+';
-                    plusButton.classList.add('plus-btn');
-                    plusButton.addEventListener('click', () => navigateToCategory(category));
-                    div.appendChild(plusButton);
+    for (const [category, items] of Object.entries(categories)) {
+        items.forEach((item) => {
+            if (item.name.toLowerCase().includes(query)) {
+                found = true;
 
-                    dropdown.appendChild(div);
-                }
-            });
+                // Create a result element
+                const resultItem = document.createElement("div");
+                resultItem.className = "dropdown-item";
+                resultItem.textContent = item.name;
+
+                resultItem.addEventListener("click", () => {
+                    content.innerHTML = `
+                        <h2>${item.name}</h2>
+                        <p>${item.description}</p>
+                    `;
+                    dropdown.style.display = "none";
+                    searchBar.value = ""; // Clear the search bar
+                });
+
+                dropdown.appendChild(resultItem);
+            }
         });
+    }
 
-        dropdown.style.display = 'block'; // Show dropdown
-    } else {
-        dropdown.style.display = 'none'; // Hide dropdown if search bar is empty
+    if (!found) {
+        dropdown.innerHTML = `<p style="padding:10px; color: orange;">No results found</p>`;
+    }
+});
+
+// Hide dropdown when clicking outside
+document.addEventListener("click", (event) => {
+    if (!dropdown.contains(event.target) && event.target !== searchBar) {
+        dropdown.style.display = "none";
     }
 });
 
