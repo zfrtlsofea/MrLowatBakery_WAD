@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Forgot Password - Mr. Lowat Bakery</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+      </head>
+<body>
+    <header>
+        <nav>
+          <h1>Mr. Lowat Bakery</h1>
+          <div class="nav-links">
+            <ul>
+              <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+              <li><a href="menu.html"><i class="fas fa-cake"></i> Menu</a></li>
+              <li><a href="register.html"><i class="fas fa-user"></i> Register</a></li>
+              <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+    <main>
+        <section class="middle-section">
+            <h2>Generate Receipt</h2>
+            <p>Welcome, <strong>John Doe</strong>!</p>
+            <form action="generate_receipt.php" method="POST">
+                <label for="receipt-type">Select Receipt Type:</label>
+                <select name="receipt_type" id="receipt-type" required>
+                    <option value="detailed">Detailed Receipt</option>
+                    <option value="summary">Summary Receipt</option>
+                </select>
+                <br>
+                <label for="start-date">Start Date:</label>
+                <input type="date" name="start_date" id="start-date" required>
+                <br>
+                <label for="end-date">End Date:</label>
+                <input type="date" name="end_date" id="end-date" required>
+                <br>
+                <button type="submit">Generate PDF</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Mr. Lowat Bakery. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
