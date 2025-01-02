@@ -177,6 +177,38 @@ header .logout-btn:hover {
     background-color: #E55C00; /* Dark orange on hover */
 }
 
+/* Transactions Section */
+.transactions-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.transactions-content h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #FF6700; /* Orange color */
+}
+
+.transactions-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.transactions-list table th, .transactions-list table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.transactions-list table th {
+    background-color: #FF6700; /* Orange color */
+    color: white;
+}
+
 /* Orders Section */
 .orders-content {
     background-color: #ffffff;
@@ -192,149 +224,19 @@ header .logout-btn:hover {
     color: #FF6700; /* Orange color */
 }
 
-.order-list table {
+.orders-list table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-.order-list table th, .order-list table td {
+.orders-list table th, .orders-list table td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
 }
 
-.order-list table th {
+.orders-list table th {
     background-color: #FF6700; /* Orange color */
     color: white;
-}
-
-.order-list table td button {
-    background-color: #FF6700;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.order-list table td button:hover {
-    background-color: #E55C00; /* Dark orange */
-}
-
-/* Order Details Section */
-.order-details {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    display: none;
-}
-
-.order-details h3 {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
-    color: #FF6700; /* Orange color */
-}
-
-.order-actions {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.order-actions button {
-    background-color: #FF6700;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.order-actions button:hover {
-    background-color: #E55C00; /* Dark orange */
-}
-
-.order-items, .payment-details, .shipping-details, .order-status {
-    margin-bottom: 20px;
-}
-
-.order-items table, .payment-details, .shipping-details {
-    width: 100%;
-}
-
-.order-items table th, .order-items table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-.order-status {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.order-status button {
-    background-color: #FF6700;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.order-status button:hover {
-    background-color: #E55C00; /* Dark orange */
-}
-
-/* Back Button */
-button {
-    margin-top: 20px;
-    background-color: #E55C00;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #CC4F00; /* Dark orange */
-}
-
-/* Products Section */
-.products-content {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-}
-
-.products-content h2 {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
-    color: #FF6700; /* Orange color */
-}
-
-/* Users Section */
-.users-content {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-}
-
-.users-content h2 {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
-    color: #FF6700; /* Orange color */
 }

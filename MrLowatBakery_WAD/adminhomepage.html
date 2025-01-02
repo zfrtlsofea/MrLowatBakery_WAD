@@ -23,6 +23,7 @@
         <button class="nav-btn" onclick="showProfile()">Profile</button>
         <button class="nav-btn" onclick="showOrders()">Orders</button>
         <button class="nav-btn" onclick="showProducts()">Products</button>
+        <button class="nav-btn" onclick="showSummaryTransaction()">Transaction</button>
     </div>
 
     <!-- Middle Section (Content) -->
@@ -300,6 +301,136 @@
             <p>Manage users here.</p>
         </div>
     </div>
+    <!-- Transaction Section -->
+    <div class="transactions-content section-content" style="display: none;">
+        <h2 class="section-title">Transaction Summary</h2>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <label for="filter-period">Filter by:</label>
+            <select id="filter-period" onchange="filterTransactions()">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+        </div>
+
+        <!-- Transaction Records -->
+        <div class="transaction-records">
+            <h3>Transaction Records</h3>
+            <table id="transaction-table">
+                <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Transaction records will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Transaction Summary -->
+        <div class="transaction-summary">
+            <h3>Summary</h3>
+            <p><strong>Total Transactions:</strong> <span id="total-transactions">0</span></p>
+            <p><strong>Total Amount:</strong> <span id="total-amount">$0.00</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Sample transaction data for demonstration purposes
+        const transactions = [
+            { id: 1, date: '2025-01-01', amount: 50.00, status: 'Completed' },
+            { id: 2, date: '2025-01-01', amount: 30.00, status: 'Completed' },
+            { id: 3, date: '2025-01-02', amount: 20.00, status: 'Pending' },
+            { id: 4, date: '2025-01-03', amount: 45.00, status: 'Completed' },
+            { id: 5, date: '2025-01-03', amount: 70.00, status: 'Completed' },
+            { id: 6, date: '2025-01-04', amount: 100.00, status: 'Completed' },
+            // Add more transactions as necessary
+        ];
+
+        // Show Transaction Section
+        function showSummaryTransaction() {
+            resetSections();
+            document.querySelector('.transactions-content').style.display = 'block';
+            displayTransactions('daily'); // Default filter is daily
+        }
+
+        // Reset all sections visibility
+        function resetSections() {
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+        }
+
+        // Filter transactions by selected period
+        function filterTransactions() {
+            const period = document.getElementById('filter-period').value;
+            displayTransactions(period);
+        }
+
+        // Display transactions based on selected period (daily, weekly, or monthly)
+        function displayTransactions(period) {
+            let filteredTransactions;
+
+            const today = new Date();
+            const currentDate = today.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+
+            // Filter transactions based on the selected period
+            if (period === 'daily') {
+                filteredTransactions = transactions.filter(transaction => transaction.date === currentDate);
+            } else if (period === 'weekly') {
+                const startOfWeek = getStartOfWeek(today);
+                filteredTransactions = transactions.filter(transaction => {
+                    return new Date(transaction.date) >= startOfWeek;
+                });
+            } else if (period === 'monthly') {
+                const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+                filteredTransactions = transactions.filter(transaction => {
+                    return new Date(transaction.date) >= startOfMonth;
+                });
+            }
+
+            // Display the filtered transactions in the table
+            const tableBody = document.querySelector('#transaction-table tbody');
+            tableBody.innerHTML = '';
+            let totalAmount = 0;
+            filteredTransactions.forEach(transaction => {
+                const row = `
+                    <tr>
+                        <td>${transaction.id}</td>
+                        <td>${transaction.date}</td>
+                        <td>$${transaction.amount.toFixed(2)}</td>
+                        <td>${transaction.status}</td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+                totalAmount += transaction.amount;
+            });
+
+            // Update the summary section
+            document.getElementById('total-transactions').textContent = filteredTransactions.length;
+            document.getElementById('total-amount').textContent = `$${totalAmount.toFixed(2)}`;
+        }
+
+        // Get the start of the week (Monday)
+        function getStartOfWeek(date) {
+            const day = date.getDay(),
+                diff = date.getDate() - day + (day == 0 ? -6 : 1); // Adjust when day is Sunday
+            return new Date(date.setDate(diff));
+        }
+
+        // Display the transactions section on page load
+        window.onload = function() {
+            showSummaryTransaction(); // Show transactions by default
+        }
+    </script>
+
 </div>
 <script>
     // Logout function
