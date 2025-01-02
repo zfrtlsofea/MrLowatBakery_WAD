@@ -203,3 +203,44 @@ footer {
     font-size: 16px;
     cursor: pointer;
 }
+
+.customization-dropdown {
+    position: relative;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 1em;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    margin-top: 10px;
+    position: absolute;
+    top: 0;
+    left: 100%; /* Adjusts positioning */
+    transform: translateX(10px);
+}
+
+.customization-dropdown h3 {
+    margin-top: 0;
+}
+
+.customization-dropdown form {
+    display: flex;
+    flex-direction: column;
+}
+
+.customization-dropdown form label {
+    margin-bottom: 0.5em;
+}
+
+.customization-dropdown form select {
+    margin-bottom: 1em;
+    padding: 0.5em;
+}
+
+.customization-dropdown .close-customization {
+    background-color: red;
+    color: white;
+    padding: 0.5em;
+    border: none;
+    cursor: pointer;
+}
+

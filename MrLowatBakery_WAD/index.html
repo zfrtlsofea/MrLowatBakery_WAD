@@ -58,7 +58,7 @@
         /* Layout Styling */
         .container {
             display: flex;
-            height: calc(100vh - 50px); 
+            height: calc(100vh - 50px);
         }
 
         .left-section {
@@ -145,7 +145,7 @@
 <header>
     <h1>Mr. Lowat Bakery</h1>
     <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Search for items...">
+        <input type="text" id="searchBar" placeholder="Search for categories...">
         <div class="dropdown" id="categoryDropdown"></div>
     </div>
     <div class="icon-links">
@@ -173,12 +173,12 @@
             <button onclick="showCategory('brownies')" class="light-orange">Brownies</button>
             <button onclick="showCategory('burnedCheesecake')" class="light-orange">Burned Cheesecake</button>
             <button onclick="showCategory('promotion')" class="light-orange">Special Promotion</button>
-        </div>        
+        </div>
         <button class="nav-btn" onclick="location.href='cart.html'"><i class="fas fa-shopping-cart"></i> Cart</button>
         <button class="nav-btn" onclick="location.href='orders.html'"><i class="fas fa-receipt"></i> My Orders</button>
     </div>
 
-    <!-- Middle Section --> 
+    <!-- Middle Section -->
     <div class="middle-section">
         <h2>Featured Items</h2>
         <div class="featured-items">
@@ -214,7 +214,7 @@
                     <h3>Mini Cupcakes 16 pcs</h3>
                     <p>Flavors: Vanilla, Chocolate, Red Velvet, Pandan, with choices of cream.</p>
                 </div>
-                <button class="customize-btn" onclick="redirectToCustomizeOrder('Mini Cupcakes 16 pcs')">
+                <button class="customize-btn" onclick="addToCart('Mini Cupcakes 16 pcs')">
                     <i class="fas fa-plus"></i>
                 </button>
             </div>
@@ -226,7 +226,7 @@
                     <h3>6 Inch Brownies</h3>
                     <p>Various topping choices and can add on your own deco/topper.</p>
                 </div>
-                <button class="customize-btn" onclick="redirectToCustomizeOrder('6 Inch Brownies')">
+                <button class="customize-btn" onclick="addToCart('6 Inch Brownies')">
                     <i class="fas fa-plus"></i>
                 </button>
             </div>
@@ -238,7 +238,7 @@
                     <h3>Tiered Sponge Cake</h3>
                     <p>A beautifully layered sponge cake, perfect for any celebration.</p>
                 </div>
-                <button class="customize-btn" onclick="redirectToCustomizeOrder('Tiered Sponge Cake')">
+                <button class="customize-btn" onclick="addToCart('Tiered Sponge Cake')">
                     <i class="fas fa-plus"></i>
                 </button>
             </div>
@@ -250,14 +250,14 @@
                     <h3>Mini Cheese Tart</h3>
                     <p>Original, Nutella topping, Cadbury topping, Mix and match options available.</p>
                 </div>
-                <button class="customize-btn" onclick="redirectToCustomizeOrder('Mini Cheese Tart')">
+                <button class="customize-btn" onclick="addToCart('Mini Cheese Tart')">
                     <i class="fas fa-plus"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Right Section --> 
+    <!-- Right Section -->
     <div class="right-section">
         <h2>Real-Time Cart</h2>
         <div class="cart-items" id="right-cart-items">
@@ -286,11 +286,11 @@
     <div class="popup-content">
         <h2>Contact</h2>
         <p>Phone: 016-402-5451</p>
-        <p><a href="https://api.whatsapp.com/send/?phone=60164025451" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></p>
+        <p><button onclick="window.location.href='https://api.whatsapp.com/send/?phone=60164025451'" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</button></p>
         <p>
             Follow us on social media:
-            <a href="https://www.facebook.com/mrlowatbakery/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>,
-            <a href="https://www.instagram.com/mrlowatbake/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            <button onclick="window.location.href='https://www.facebook.com/mrlowatbakery/'" target="_blank"><i class="fab fa-facebook"></i> Facebook</button>,
+            <button onclick="window.location.href='https://www.instagram.com/mrlowatbake/'" target="_blank"><i class="fab fa-instagram"></i> Instagram</button>
         </p>
         <button class="popup-close" onclick="closePopup('contact-popup')">Close</button>
     </div>
@@ -315,147 +315,180 @@
 <script>
     const searchBar = document.getElementById('searchBar');
     const dropdown = document.getElementById('categoryDropdown');
-    const middleSection = document.getElementById("middleSection");
     const categories = {
     cake: [
-        { name: "Tiered Sponge Cake", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg" },
-        { name: "Apam @ Moist Cake", description: "Soft, moist cake with a traditional touch.", image: "images/apam_cake.jpg" },
-        { name: "Bite Size Cake", description: "Small, flavorful cakes for bite-sized enjoyment.", image: "images/bite_size_cake.jpg" },
-        { name: "Sponge Cake Simple Decoration", description: "Classic sponge cake with a simple and elegant decoration.", image: "images/simple_sponge_cake.jpg" }
+        { name: "Tiered Sponge Cake (Vanilla)", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg", price: 70},
+        { name: "Tiered Sponge Cake (Chocolate)", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg", price: 70 },
+        { name: "Tiered Sponge Cake (Red Velvet)", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg", price: 70 },
+        { name: "Tiered Sponge Cake (Pandan)", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg", price: 70 },
+        { name: "Apam @ Moist Cake (Vanilla)", description: "Soft, moist cake with a traditional touch.", image: "images/apam_cake.jpg", price: 30 },
+        { name: "Apam @ Moist Cake (Chocolate)", description: "Soft, moist cake with a traditional touch.", image: "images/apam_cake.jpg", price: 30 },
+        { name: "Apam @ Moist Cake (Red Velvet)", description: "Soft, moist cake with a traditional touch.", image: "images/apam_cake.jpg", price: 30 },
+        { name: "Apam @ Moist Cake (Pandan)", description: "Soft, moist cake with a traditional touch.", image: "images/apam_cake.jpg", price: 30 },
+        { name: "Bite Size Cake (Vanilla)", description: "Small, flavorful cakes for bite-sized enjoyment.", image: "images/bite_size_cake.jpg", price: 35 },
+        { name: "Bite Size Cake (Chocolate)", description: "Small, flavorful cakes for bite-sized enjoyment.", image: "images/bite_size_cake.jpg", price: 35 },
+        { name: "Bite Size Cake (Red Velvet)", description: "Small, flavorful cakes for bite-sized enjoyment.", image: "images/bite_size_cake.jpg", price: 35 },
+        { name: "Bite Size Cake (Pandan)", description: "Small, flavorful cakes for bite-sized enjoyment.", image: "images/bite_size_cake.jpg", price: 35 },
+        { name: "Sponge Cake Simple Decoration (Vanilla)", description: "Classic sponge cake with a simple and elegant decoration.", image: "images/simple_sponge_cake.jpg", price: 42 },
+        { name: "Sponge Cake Simple Decoration (Chocolate)", description: "Classic sponge cake with a simple and elegant decoration.", image: "images/simple_sponge_cake.jpg", price: 42 },
+        { name: "Sponge Cake Simple Decoration (Red Velvet)", description: "Classic sponge cake with a simple and elegant decoration.", image: "images/simple_sponge_cake.jpg", price: 42 },
+        { name: "Sponge Cake Simple Decoration (Pandan)", description: "Classic sponge cake with a simple and elegant decoration.", image: "images/simple_sponge_cake.jpg", price: 42 }
     ],
     cupcake: [
-        { name: "Mini Cupcakes 16 pieces", description: "Flavors: Vanilla, Chocolate, Red Velvet, Pandan, with choices of cream.", image: "images/mini_cupcakes.jpg" },
-        { name: "Mini Size Cupcakes 25 pieces", description: "Flavors: Vanilla, Chocolate, Red Velvet, Pandan, with choices of cream.", image: "images/mini_cupcakes_25.jpg" },
-        { name: "Normal Cupcakes 16 pieces", description: "Flavors: Vanilla, Chocolate, Red Velvet, Pandan, with choices of cream.", image: "images/normal_cupcakes.jpg" },
-        { name: "Normal Size Cupcakes 25 pieces", description: "Flavors: Vanilla, Chocolate, Red Velvet, Pandan, with choices of cream.", image: "images/normal_cupcakes_25.jpg" }
+        { name: "Mini Cupcakes 16 pieces (Vanilla)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_16.jpg", price: 30 },
+        { name: "Mini Cupcakes 16 pieces (Chocolate)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_16.jpg", price: 30 },
+        { name: "Mini Cupcakes 16 pieces (Red Velvet)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_16.jpg", price: 30 },
+        { name: "Mini Cupcakes 16 pieces (Pandan)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_16.jpg", price: 30 },
+        { name: "Mini Size Cupcakes 25 pieces (Vanilla)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_25.jpg", price: 40 },
+        { name: "Mini Size Cupcakes 25 pieces (Chocolate)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_25.jpg", price: 40 },
+        { name: "Mini Size Cupcakes 25 pieces (Red Velvet)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_25.jpg", price: 40 },
+        { name: "Mini Size Cupcakes 25 pieces (Pandan)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_25.jpg", price: 40 },
+        { name: "Normal Cupcakes 16 pieces (Vanilla)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes.jpg", price: 48 },
+        { name: "Normal Cupcakes 16 pieces (Chocolate)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes.jpg", price: 48 },
+        { name: "Normal Cupcakes 16 pieces (Red Velvet)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes.jpg", price: 48 },
+        { name: "Normal Cupcakes 16 pieces (Pandan)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes.jpg", price: 48},
+        { name: "Normal Size Cupcakes 25 pieces (Vanilla)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes_25.jpg", price: 60.80 },
+        { name: "Normal Size Cupcakes 25 pieces (Chocolate)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes_25.jpg", price: 60.80 },
+        { name: "Normal Size Cupcakes 25 pieces (Red Velvet)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes_25.jpg", price: 60.80 },
+        { name: "Normal Size Cupcakes 25 pieces (Pandan)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes_25.jpg", price: 60.80 }
     ],
     tart: [
-        { name: "Mini Cheese Tart (Montok Budget Set)", description: "Original, Nutella topping, Cadbury topping, Mix and match options available.", image: "images/mini_cheese_tart.jpg" },
-        { name: "Mini Cheese Tart (Fruity Fillings)", description: "Choose your favourite fruit fillings.", image: "images/mini_cheese_tart_25.jpg" },
-        { name: "Giant Cheese Tart (6 inch - with Mini Tart Set)", description: "Includes mini tarts.", image: "images/giant_cheese_tart.jpg" },
-        { name: "Giant Cheese Tart (7 inch - with Mini Tart Set)", description: "Includes mini tarts.", image: "images/giant_cheese_tart_7inch.jpg" }
+        { name: "Mini Cheese Tart (Original)", description: "Choose your favorite flavor with different topping options.", image: "images/mini_cheese_tart.jpg", price: 43},
+        { name: "Mini Cheese Tart (Nutella)", description: "Choose your favorite flavor with different topping options.", image: "images/mini_cheese_tart.jpg", price: 43 },
+        { name: "Mini Cheese Tart (Cadbury)", description: "Choose your favorite flavor with different topping options.", image: "images/mini_cheese_tart.jpg", price: 43 },
+        { name: "Mini Cheese Tart (Mix and Match)", description: "Choose your favorite flavor and mix and match different toppings.", image: "images/mini_cheese_tart.jpg", price: 43 },
+        { name: "Giant Cheese Tart (6 inch - Original)", description: "Includes mini tarts.", image: "images/giant_cheese_tart.jpg", price: 58 },
+        { name: "Giant Cheese Tart (6 inch - Nutella)", description: "Includes mini tarts.", image: "images/giant_cheese_tart.jpg", price: 58 },
+        { name: "Giant Cheese Tart (7 inch - Cadbury)", description: "Includes mini tarts.", image: "images/giant_cheese_tart_7inch.jpg", price: 68 },
+        { name: "Giant Cheese Tart (7 inch - Original)", description: "Includes mini tarts.", image: "images/giant_cheese_tart_7inch.jpg", price: 68 }
     ],
     brownies: [
-        { name: "6 Inch Brownies", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_6inch.jpg" },
-        { name: "8 Inch Brownies", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg" }
+        { name: "6 Inch Brownies (Chocolate)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_6inch.jpg", price: 25 },
+        { name: "6 Inch Brownies (Nutella)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_6inch.jpg", price: 27 },
+        { name: "6 Inch Brownies (Cream Cheese)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_6inch.jpg", price: 30 },
+        { name: "6 Inch Brownies (Nuts)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_6inch.jpg", price: 32 },
+        { name: "8 Inch Brownies (Chocolate)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg", price: 35 },
+        { name: "8 Inch Brownies (Nutella)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg", price: 38 },
+        { name: "8 Inch Brownies (Cream Cheese)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg", price: 45 },
+        { name: "8 Inch Brownies (Nuts)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg" , price: 48}
     ],
     burnedCheesecake: [
-        { name: "Classic Burnt Cheesecake", description: "Rich and creamy cheesecake with a caramelized top.", image: "images/burnt_cheesecake_6inch.jpg" }
+        { name: "Classic Burned Cheesecake", description: "Rich and creamy cheesecake with a caramelized top.", image: "images/burnt_cheesecake_6inch.jpg", price: 40},
+        { name: "Custom Design Classic Burned Cheesecake", description: "Design your own cheesecake with a caramelized top.", image: "images/burnt_cheesecake_6inch.jpg", price: 55 }
     ],
     promotion: [
-        { name: "Dessert Table Package A", description: "Combination of Mini Cheese Tart, Moist Cake, Burnt Cheesecake, and Mini Cupcakes at a discounted price.", image: "images/promotionA.jpg" },
-        { name: "Dessert Table Package B", description: "Combination of Sponge Cake, Mini Cheese Tart, Cream Puff, and Roti Sosej at a discounted price.", image: "images/promotionB.jpg" },
-        { name: "Dessert Table Package C", description: "Combination of Sponge Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionC.jpg" },
-        { name: "Dessert Table Package D", description: "Combination of Bite-size Cake, Moist Cake, Burnt Cheesecake, and Mini Cupcakes at a discounted price.", image: "images/promotionD.jpg" },
-        { name: "Dessert Table Package E", description: "Combination of Mini Cheese Tart, Bite-size Cake, Cream Puff, and Fruit Tart at a discounted price.", image: "images/promotionE.jpg" },
-        { name: "Dessert Table Package F", description: "Combination of Sponge Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionF.jpg" },
-        { name: "Dessert Table Package G", description: "Combination of Bite-size Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionG.jpg" },
-        { name: "Dessert Table Package H", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionH.jpg" },
-        { name: "Dessert Table Package I", description: "Combination of Mini Cheese Tart, Brownies, Cream Puff, and Roti Sosej at a discounted price.", image: "images/promotionI.jpg" },
-        { name: "Dessert Table Package J", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionJ.jpg" },
-        { name: "Dessert Table Package K", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionK.jpg" },
-        { name: "Dessert Table Package L", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionL.jpg" },
-        { name: "Dessert Table Package M", description: "Combination of Mini Cheese Tart, Brownies, Cream Puff, and Roti Sosej at a discounted price.", image: "images/promotionM.jpg" },
-        { name: "Dessert Table Package N", description: "Combination of Brownies, Fruit Tart, Cheese Tart, and Roti Sosej at a discounted price.", image: "images/promotionN.jpg" },
-        { name: "Dessert Table Package O", description: "Combination of Mini Cheese Tart, Brownies, and Cream Puff at a discounted price.", image: "images/promotionO.jpg" },
-        { name: "Dessert Table Package P", description: "Combination of Bite-size Cake, Moist Cake, and Cream Puff at a discounted price.", image: "images/promotionP.jpg" },
-        { name: "Dessert Table Package Q", description: "Combination of Bite-size Cake, Fruit Tart, and Cream Puff at a discounted price.", image: "images/promotionQ.jpg" },
-        { name: "Dessert Table Package R", description: "Combination of Brownies, Fruit Tart, and Cream Puff at a discounted price.", image: "images/promotionR.jpg" }
+        { name: "Dessert Table Package A", description: "Combination of Mini Cheese Tart, Moist Cake, Burnt Cheesecake, and Mini Cupcakes at a discounted price.", image: "images/promotionA.jpg", price: 145 },
+        { name: "Dessert Table Package B", description: "Combination of Sponge Cake, Mini Cheese Tart, Cream Puff, and Roti Sosej at a discounted price.", image: "images/promotionB.jpg", price: 175 },
+        { name: "Dessert Table Package C", description: "Combination of Sponge Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionC.jpg", price: 145 },
+        { name: "Dessert Table Package D", description: "Combination of Bite-size Cake, Moist Cake, Burnt Cheesecake, and Mini Cupcakes at a discounted price.", image: "images/promotionD.jpg", price: 140 },
+        { name: "Dessert Table Package E", description: "Combination of Mini Cheese Tart, Bite-size Cake, Cream Puff, and Fruit Tart at a discounted price.", image: "images/promotionE.jpg", price: 135 },
+        { name: "Dessert Table Package F", description: "Combination of Sponge Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionF.jpg", price: 125 },
+        { name: "Dessert Table Package G", description: "Combination of Bite-size Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionG.jpg", price: 117 },
+        { name: "Dessert Table Package H", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionH.jpg", price: 115 },
+        { name: "Dessert Table Package I", description: "Combination of Mini Cheese Tart, Brownies, Cream Puff, and Roti Sosej at a discounted price.", image: "images/promotionI.jpg", price: 130 },
+        { name: "Dessert Table Package J", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionJ.jpg", price: 105 },
+        { name: "Dessert Table Package K", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionK.jpg", price: 105 },
+        { name: "Dessert Table Package L", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionL.jpg", price: 95 },
+        { name: "Dessert Table Package M", description: "Combination of Mini Cheese Tart, Brownies, Cream Puff, and Roti Sosej at a discounted price.", image: "images/promotionM.jpg", price: 124 },
+        { name: "Dessert Table Package N", description: "Combination of Brownies, Fruit Tart, Cheese Tart, and Roti Sosej at a discounted price.", image: "images/promotionN.jpg", price: 120 },
+        { name: "Dessert Table Package O", description: "Combination of Mini Cheese Tart, Brownies, and Cream Puff at a discounted price.", image: "images/promotionO.jpg", price: 94 },
+        { name: "Dessert Table Package P", description: "Combination of Bite-size Cake, Moist Cake, and Cream Puff at a discounted price.", image: "images/promotionP.jpg", price: 85 },
+        { name: "Dessert Table Package Q", description: "Combination of Bite-size Cake, Fruit Tart, and Cream Puff at a discounted price.", image: "images/promotionQ.jpg", price: 95 },
+        { name: "Dessert Table Package R", description: "Combination of Brownies, Fruit Tart, and Cream Puff at a discounted price.", image: "images/promotionR.jpg",, price: 85 }
     ]
 };
 
-   // Function to filter and display search results
-searchBar.addEventListener("input", function () {
-    const query = searchBar.value.toLowerCase().trim();
-    dropdown.innerHTML = ""; // Clear previous results
+searchBar.addEventListener('input', function() {
+    const searchValue = searchBar.value.toLowerCase();
+    dropdown.innerHTML = '';
 
-    if (query === "") {
-        dropdown.style.display = "none"; // Hide dropdown if query is empty
-        return;
-    }
+    if (searchValue) {
+        const filteredCategories = Object.keys(categories).filter(key =>
+            categories[key].some(item => item.name.toLowerCase().includes(searchValue))
+        );
 
-    dropdown.style.display = "block"; // Show dropdown
-    let found = false;
+        filteredCategories.forEach(category => {
+            categories[category].forEach(item => {
+                if (item.name.toLowerCase().includes(searchValue)) {
+                    const div = document.createElement('div');
+                    div.textContent = item.name;
+                    div.classList.add('dropdown-item');
+                    div.style.color = 'orange'; // Change font color to orange
 
-    for (const [category, items] of Object.entries(categories)) {
-        items.forEach((item) => {
-            if (item.name.toLowerCase().includes(query)) {
-                found = true;
+                    const plusButton = document.createElement('button');
+                    plusButton.textContent = '+';
+                    plusButton.classList.add('plus-btn');
+                    plusButton.addEventListener('click', () => navigateToCategory(category));
+                    div.appendChild(plusButton);
 
-                // Create a result element
-                const resultItem = document.createElement("div");
-                resultItem.className = "dropdown-item";
-                resultItem.textContent = item.name;
-
-                resultItem.addEventListener("click", () => {
-                    content.innerHTML = `
-                        <h2>${item.name}</h2>
-                        <p>${item.description}</p>
-                    `;
-                    dropdown.style.display = "none";
-                    searchBar.value = ""; // Clear the search bar
-                });
-
-                dropdown.appendChild(resultItem);
-            }
+                    dropdown.appendChild(div);
+                }
+            });
         });
-    }
 
-    if (!found) {
-        dropdown.innerHTML = `<p style="padding:10px; color: orange;">No results found</p>`;
-    }
-});
-
-// Hide dropdown when clicking outside
-document.addEventListener("click", (event) => {
-    if (!dropdown.contains(event.target) && event.target !== searchBar) {
-        dropdown.style.display = "none";
+        dropdown.style.display = 'block'; // Show dropdown
+    } else {
+        dropdown.style.display = 'none'; // Hide dropdown if search bar is empty
     }
 });
 
-// Function to navigate to the selected category in the middle section
-function navigateToCategory(categoryName) {
-    const middleSection = document.getElementById('middleSection');
-    const selectedCategory = categories[categoryName.toLowerCase()];
+// Function to render a category and its items
+function showCategory(category) {
+    const middleSection = document.querySelector('.middle-section');
+    const items = categories[category] || [];
 
-    middleSection.innerHTML = `<h2>${categoryName}</h2>`;
-
-    selectedCategory.forEach(product => {
-        const productDiv = document.createElement('div');
-        productDiv.classList.add('product-item');
-        productDiv.innerHTML = `
-            <img src="images/${product.name.toLowerCase().replace(/ /g, '_')}.jpg" alt="${product.name}">
-            <h3>${product.name}</h3>
-        `;
-        middleSection.appendChild(productDiv);
-    });
+    middleSection.innerHTML = `
+        <h2>${capitalizeFirstLetter(category)}s</h2>
+        <div class="category-list">
+            ${items.map(item => `
+                <div class="category-item">
+                    <img src="${item.image}" alt="${item.name}" class="category-image">
+                    <div class="category-details">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                    </div>
+                    <button class="customize-btn" onclick="addToCart('${item.name}')">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            `).join('')}
+        </div>
+    `;
 }
 
-    function showCategory(category) {
-        const items = categories[category] || [];
-        const middleSection = document.querySelector('.middle-section');
-        middleSection.innerHTML = `
-            <h2>${category.charAt(0).toUpperCase() + category.slice(1)}s</h2>
-            <div class="category-list">
-                ${items.map(item => `
-                    <div class="category-item">
-                        <img src="${item.image}" alt="${item.name}" class="category-image">
-                        <div class="category-details">
-                            <h3>${item.name}</h3>
-                            <p>${item.description}</p>
-                        </div>
-                        <button class="customize-btn" onclick="redirectToCustomizeOrder('${item.name}')">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-                `).join('')}
-            </div>
-        `;
+// Helper function to capitalize the first letter of a string
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+    function addToCart(itemName) {
+    // Assuming there's a function to update the cart UI and total price
+    updateCart(itemName);
+    alert(`${itemName} has been added to your cart.`);
     }
 
-    function redirectToCustomizeOrder(itemName) {
-        window.location.href = `customize_order.html?item=${encodeURIComponent(itemName)}`;
+
+    // Example of updating the cart (you would replace this with your actual cart update logic)
+    function updateCart(itemName) {
+        const cartItems = document.getElementById('right-cart-items');
+        const newItem = document.createElement('div');
+        newItem.textContent = itemName;
+        cartItems.appendChild(newItem);
+
+        // Update total price logic (assuming there's a way to get item price)
+        const itemPrice = getItemPrice(itemName);
+        const totalPriceElement = document.getElementById('right-cart-total');
+        const currentTotal = parseFloat(totalPriceElement.textContent.replace('$', ''));
+        const newTotal = currentTotal + itemPrice;
+        totalPriceElement.textContent = `$${newTotal.toFixed(2)}`;
     }
+
+    // Example function to get item price (to be customized as per actual logic)
+    function getItemPrice(itemName) {
+        // Return a placeholder price, replace with actual logic
+        return 5.00; // Assuming $5.00 for demonstration purposes
+    }
+
 </script>
 
 </body>
