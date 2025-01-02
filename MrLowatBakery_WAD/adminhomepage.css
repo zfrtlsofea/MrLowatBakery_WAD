@@ -1,0 +1,340 @@
+/* Resetting margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    background-color: #FF6700; /* Orange color */
+    padding: 15px 30px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #e5e5e5;
+}
+
+header .logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+header .icon-links {
+    display: flex;
+    gap: 20px;
+}
+
+header .logout-btn {
+    background-color: #E55C00; /* Dark orange */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+header .logout-btn:hover {
+    background-color: #CC4F00; /* Hover dark orange */
+}
+
+/* Layout for the container */
+.container {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    flex-wrap: wrap; /* Ensure wrapping if there's insufficient space */
+}
+
+/* Left Sidebar */
+.left-section {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.nav-btn {
+    background-color: #FF6700; /* Orange color */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #E55C00; /* Dark orange on hover */
+}
+
+/* Right Content Area */
+.middle-section {
+    flex-grow: 1;
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Ensure wrapping when there is limited space */
+}
+
+/* Menu Section */
+.menu-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.menu-content h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #FF6700; /* Orange color */
+}
+
+/* Profile Section */
+.profile-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-grow: 1; /* Allow this section to grow */
+    display: block;
+}
+
+.profile-content h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #FF6700; /* Orange color */
+}
+
+.profile-card {
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card .form-group {
+    margin-bottom: 15px;
+}
+
+.profile-card label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.profile-card input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: border 0.3s ease;
+}
+
+.profile-card input:focus {
+    border-color: #FF6700; /* Orange focus color */
+}
+
+.profile-card button {
+    background-color: #FF6700; /* Orange color */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.profile-card button:hover {
+    background-color: #E55C00; /* Dark orange on hover */
+}
+
+/* Orders Section */
+.orders-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.orders-content h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #FF6700; /* Orange color */
+}
+
+.order-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.order-list table th, .order-list table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.order-list table th {
+    background-color: #FF6700; /* Orange color */
+    color: white;
+}
+
+.order-list table td button {
+    background-color: #FF6700;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.order-list table td button:hover {
+    background-color: #E55C00; /* Dark orange */
+}
+
+/* Order Details Section */
+.order-details {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    display: none;
+}
+
+.order-details h3 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #FF6700; /* Orange color */
+}
+
+.order-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.order-actions button {
+    background-color: #FF6700;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.order-actions button:hover {
+    background-color: #E55C00; /* Dark orange */
+}
+
+.order-items, .payment-details, .shipping-details, .order-status {
+    margin-bottom: 20px;
+}
+
+.order-items table, .payment-details, .shipping-details {
+    width: 100%;
+}
+
+.order-items table th, .order-items table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.order-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-status button {
+    background-color: #FF6700;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.order-status button:hover {
+    background-color: #E55C00; /* Dark orange */
+}
+
+/* Back Button */
+button {
+    margin-top: 20px;
+    background-color: #E55C00;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #CC4F00; /* Dark orange */
+}
+
+/* Products Section */
+.products-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.products-content h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #FF6700; /* Orange color */
+}
+
+/* Users Section */
+.users-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.users-content h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #FF6700; /* Orange color */
+}
