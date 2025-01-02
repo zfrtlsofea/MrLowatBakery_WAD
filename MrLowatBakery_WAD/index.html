@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -145,11 +145,14 @@
 <header>
     <h1>Mr. Lowat Bakery</h1>
     <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Search for categories..." oninput="searchCategories()">
+        <input type="text" id="searchBar" placeholder="Search for categories...">
         <div class="dropdown" id="categoryDropdown"></div>
     </div>
-
     <div class="icon-links">
+        <a href="index.html">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
         <a href="#" id="about-us-btn">
             <i class="fas fa-info-circle"></i>
             <span>About Us</span>
@@ -169,7 +172,7 @@
     <!-- Left Section -->
     <div class="left-section">
         <h3>Navigation</h3>
-        <button class="nav-btn" onclick="location.href='profile.html'"><i class="fas fa-user"></i> Profile</button>
+        <button class="nav-btn" onclick="location.href='login.html'"><i class="fas fa-user"></i> Profile</button>
         <button id="menu-category-btn" class="nav-btn dropdown-btn"><i class="fas fa-cake"></i> Menu Category</button>
         <div id="menu-category-dropdown" class="dropdown-content">
             <button onclick="showCategory('cake')" class="light-orange">Cake</button>
@@ -180,7 +183,7 @@
             <button onclick="showCategory('promotion')" class="light-orange">Special Promotion</button>
         </div>
         <button class="nav-btn" onclick="location.href='cart.html'"><i class="fas fa-shopping-cart"></i> Cart</button>
-        <button class="nav-btn" onclick="location.href='orders.html'"><i class="fas fa-receipt"></i> My Orders</button>
+        <button class="nav-btn" onclick="location.href='login.html'"><i class="fas fa-receipt"></i> My Orders</button>
     </div>
 
     <!-- Middle Section -->
@@ -271,12 +274,10 @@
             <h4>Total:</h4>
             <p id="right-cart-total">$0.00</p>
         </div>
-        <button class="checkout-btn" onclick="redirectToCart()">Proceed to Checkout</button>
+        <button class="checkout-btn" onclick="window.location.href='login.html'">Proceed to Checkout</button>
     </div>
 
-</div>
-
-<!-- About Us Popup -->
+    <!-- About Us Popup -->
 <div class="popup-overlay" id="about-us-popup">
     <div class="popup-content">
         <h2>About Us</h2>
@@ -291,72 +292,18 @@
     <div class="popup-content">
         <h2>Contact</h2>
         <p>Phone: 016-402-5451</p>
-        <p><button onclick="window.location.href='https://api.whatsapp.com/send/?phone=60164025451'" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</button></p>
+        <p><a href="https://api.whatsapp.com/send/?phone=60164025451" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></p>
         <p>
             Follow us on social media:
-            <button onclick="window.location.href='https://www.facebook.com/mrlowatbakery/'" target="_blank"><i class="fab fa-facebook"></i> Facebook</button>,
-            <button onclick="window.location.href='https://www.instagram.com/mrlowatbake/'" target="_blank"><i class="fab fa-instagram"></i> Instagram</button>
+            <a href="https://www.facebook.com/mrlowatbakery/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>,
+            <a href="https://www.instagram.com/mrlowatbake/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
         </p>
         <button class="popup-close" onclick="closePopup('contact-popup')">Close</button>
     </div>
 </div>
-<script>
-
-    const categories = [
-        'Cake',
-        'Cupcake',
-        'Tart',
-        'Brownies',
-        'Burned',
-        'Cheesecake',
-        'Special Promotion'
-    ];
-
-    // Function to filter and display categories based on search input
-    function searchCategories() {
-        const searchBar = document.getElementById('searchBar');
-        const categoryDropdown = document.getElementById('categoryDropdown');
-        const searchTerm = searchBar.value.toLowerCase();
-
-        // Show the dropdown if the input is not empty
-        categoryDropdown.style.display = searchTerm ? 'block' : 'none';
-
-        // Clear the previous dropdown content
-        categoryDropdown.innerHTML = '';
-
-        // Filter categories based on search term
-        const filteredCategories = categories.filter(category =>
-            category.toLowerCase().includes(searchTerm)
-        );
-
-        // If there are matching categories, display them in the dropdown
-        if (filteredCategories.length > 0) {
-            filteredCategories.forEach(category => {
-                const categoryItem = document.createElement('div');
-                categoryItem.textContent = category;
-                categoryItem.classList.add('dropdown-item');
-
-                // When a category is selected, populate the search bar and hide dropdown
-                categoryItem.onclick = function () {
-                    searchBar.value = category;
-                    categoryDropdown.style.display = 'none'; // Hide dropdown after selection
-                };
-                categoryDropdown.appendChild(categoryItem);
-            });
-        } else {
-            // If no results, show a "No results found" message
-            const noResultsItem = document.createElement('div');
-            noResultsItem.textContent = 'No results found';
-            categoryDropdown.appendChild(noResultsItem);
-        }
-    }
-
-</script>
 
 <script>
-
-    <script>
-        // Open "About Us" popup
+    // Open "About Us" popup
         document.getElementById('about-us-btn').addEventListener('click', function() {
             document.getElementById('about-us-popup').style.display = 'flex';
         });
@@ -399,12 +346,59 @@
         function redirectToCart() {
             window.location.href = 'cart.html'; // Adjust URL as needed
         }
+
+    // Toggle category dropdown visibility
+    document.getElementById('menu-category-btn').addEventListener('click', function () {
+        const dropdownContent = document.getElementById('menu-category-dropdown');
+        dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Add item to cart
+    function addToCart(itemName) {
+        const cartItemsContainer = document.getElementById('right-cart-items');
+        const cartTotal = document.getElementById('right-cart-total');
+
+        // Check if item is already in the cart
+        let existingItem = cartItemsContainer.querySelector(`#cart-item-${itemName}`);
+        if (!existingItem) {
+            const newItem = document.createElement('div');
+            newItem.id = `cart-item-${itemName}`;
+            newItem.classList.add('cart-item');
+            newItem.innerHTML = `<p>${itemName}</p><button class="remove-btn" onclick="removeFromCart('${itemName}')">Remove</button>`;
+            cartItemsContainer.appendChild(newItem);
+        }
+
+        // Update cart total
+        updateCartTotal();
+    }
+
+    // Remove item from cart
+    function removeFromCart(itemName) {
+        const item = document.getElementById(`cart-item-${itemName}`);
+        if (item) {
+            item.remove();
+        }
+
+        // Update cart total
+        updateCartTotal();
+    }
+
+    // Update cart total
+    function updateCartTotal() {
+        const cartItems = document.querySelectorAll('.cart-item');
+        let total = 0;
+
+        cartItems.forEach(item => {
+            // Get item price (for now, hardcoding for demo purposes)
+            const price = 30; // Example price, could be dynamically set based on item added
+            total += price;
+        });
+
+        document.getElementById('right-cart-total').textContent = `$${total.toFixed(2)}`;
+    }
 </script>
 
-
 <script>
-    const searchBar = document.getElementById('searchBar');
-    const dropdown = document.getElementById('categoryDropdown');
     const categories = {
     cake: [
         { name: "Tiered Sponge Cake (Vanilla)", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg", price: 70},
@@ -473,62 +467,37 @@
         { name: "Dessert Table Package D", description: "Combination of Bite-size Cake, Moist Cake, Burnt Cheesecake, and Mini Cupcakes at a discounted price.", image: "images/promotionD.jpg", price: 140 },
         { name: "Dessert Table Package E", description: "Combination of Mini Cheese Tart, Bite-size Cake, Cream Puff, and Fruit Tart at a discounted price.", image: "images/promotionE.jpg", price: 135 },
         { name: "Dessert Table Package F", description: "Combination of Sponge Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionF.jpg", price: 125 },
-        { name: "Dessert Table Package G", description: "Combination of Bite-size Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionG.jpg", price: 117 },
-        { name: "Dessert Table Package H", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionH.jpg", price: 115 },
-        { name: "Dessert Table Package I", description: "Combination of Mini Cheese Tart, Brownies, Cream Puff, and Roti Sosej at a discounted price.", image: "images/promotionI.jpg", price: 130 },
-        { name: "Dessert Table Package J", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionJ.jpg", price: 105 },
-        { name: "Dessert Table Package K", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionK.jpg", price: 105 },
-        { name: "Dessert Table Package L", description: "Combination of Mini Cheese Tart, Mini Cupcakes, and Cream Puff at a discounted price.", image: "images/promotionL.jpg", price: 95 },
-        { name: "Dessert Table Package M", description: "Combination of Mini Cheese Tart, Brownies, Cream Puff, and Roti Sosej at a discounted price.", image: "images/promotionM.jpg", price: 124 },
-        { name: "Dessert Table Package N", description: "Combination of Brownies, Fruit Tart, Cheese Tart, and Roti Sosej at a discounted price.", image: "images/promotionN.jpg", price: 120 },
-        { name: "Dessert Table Package O", description: "Combination of Mini Cheese Tart, Brownies, and Cream Puff at a discounted price.", image: "images/promotionO.jpg", price: 94 },
-        { name: "Dessert Table Package P", description: "Combination of Bite-size Cake, Moist Cake, and Cream Puff at a discounted price.", image: "images/promotionP.jpg", price: 85 },
-        { name: "Dessert Table Package Q", description: "Combination of Bite-size Cake, Fruit Tart, and Cream Puff at a discounted price.", image: "images/promotionQ.jpg", price: 95 },
-        { name: "Dessert Table Package R", description: "Combination of Brownies, Fruit Tart, and Cream Puff at a discounted price.", image: "images/promotionR.jpg",, price: 85 }
+        { name: "Dessert Table Package G", description: "Combination of Bite-size Cake, Moist Cake, Cream Puff, and Cheese Tart at a discounted price.", image: "images/promotionG.jpg", price: 117 }
     ]
 };
 
-searchBar.addEventListener('input', function() {
-    const searchValue = searchBar.value.toLowerCase();
-    dropdown.innerHTML = '';
+// Function to navigate to the selected category in the middle section
+function navigateToCategory(categoryName) {
+    const middleSection = document.getElementById('middleSection');
+    const selectedCategory = categories[categoryName.toLowerCase()];
 
-    if (searchValue) {
-        const filteredCategories = Object.keys(categories).filter(key =>
-            categories[key].some(item => item.name.toLowerCase().includes(searchValue))
-        );
+    middleSection.innerHTML = `<h2>${categoryName}</h2>`;
 
-        filteredCategories.forEach(category => {
-            categories[category].forEach(item => {
-                if (item.name.toLowerCase().includes(searchValue)) {
-                    const div = document.createElement('div');
-                    div.textContent = item.name;
-                    div.classList.add('dropdown-item');
-                    div.style.color = 'orange'; // Change font color to orange
+    selectedCategory.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product-item');
+        productDiv.innerHTML = `
+            <img src="images/${product.name.toLowerCase().replace(/ /g, '_')}.jpg" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <button class="customize-btn" onclick="addToCart('${product.name}', 'images/${product.name.toLowerCase().replace(/ /g, '_')}.jpg', '${product.description || ''}')">
+                <i class="fas fa-plus"></i>
+            </button>
+        `;
+        middleSection.appendChild(productDiv);
+    });
+}
 
-                    const plusButton = document.createElement('button');
-                    plusButton.textContent = '+';
-                    plusButton.classList.add('plus-btn');
-                    plusButton.addEventListener('click', () => navigateToCategory(category));
-                    div.appendChild(plusButton);
-
-                    dropdown.appendChild(div);
-                }
-            });
-        });
-
-        dropdown.style.display = 'block'; // Show dropdown
-    } else {
-        dropdown.style.display = 'none'; // Hide dropdown if search bar is empty
-    }
-});
-
-// Function to render a category and its items
+// Function to display a specific category in the middle section
 function showCategory(category) {
+    const items = categories[category.toLowerCase()] || [];
     const middleSection = document.querySelector('.middle-section');
-    const items = categories[category] || [];
-
     middleSection.innerHTML = `
-        <h2>${capitalizeFirstLetter(category)}s</h2>
+        <h2>${category.charAt(0).toUpperCase() + category.slice(1)}s</h2>
         <div class="category-list">
             ${items.map(item => `
                 <div class="category-item">
@@ -537,7 +506,7 @@ function showCategory(category) {
                         <h3>${item.name}</h3>
                         <p>${item.description}</p>
                     </div>
-                    <button class="customize-btn" onclick="addToCart('${item.name}')">
+                    <button class="customize-btn" onclick="addToCart('${item.name}', '${item.image}', '${item.description}')">
                         <i class="fas fa-plus"></i>
                     </button>
                 </div>
@@ -546,111 +515,25 @@ function showCategory(category) {
     `;
 }
 
-// Helper function to capitalize the first letter of a string
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+// Function to add an item to the cart and update the right section
+function addToCart(name, image, description) {
+    const cartSection = document.getElementById('cartSection');
+
+    // Create a new cart item element
+    const cartItem = document.createElement('div');
+    cartItem.classList.add('cart-item');
+    cartItem.innerHTML = `
+        <img src="${image}" alt="${name}" class="cart-item-image">
+        <div class="cart-item-details">
+            <h3>${name}</h3>
+            <p>${description}</p>
+        </div>
+    `;
+
+    // Append the cart item to the cart section
+    cartSection.appendChild(cartItem);
 }
-
-    function addToCart(itemName) {
-    // Assuming there's a function to update the cart UI and total price
-    updateCart(itemName);
-    alert(`${itemName} has been added to your cart.`);
-    }
-
-
-    // Example of updating the cart (you would replace this with your actual cart update logic)
-    function updateCart(itemName) {
-        const cartItems = document.getElementById('right-cart-items');
-        const newItem = document.createElement('div');
-        newItem.textContent = itemName;
-        cartItems.appendChild(newItem);
-
-        // Update total price logic (assuming there's a way to get item price)
-        const itemPrice = getItemPrice(itemName);
-        const totalPriceElement = document.getElementById('right-cart-total');
-        const currentTotal = parseFloat(totalPriceElement.textContent.replace('$', ''));
-        const newTotal = currentTotal + itemPrice;
-        totalPriceElement.textContent = `$${newTotal.toFixed(2)}`;
-    }
-
-    // Example function to get item price (to be customized as per actual logic)
-    function getItemPrice(itemName) {
-        // Return a placeholder price, replace with actual logic
-        return 5.00; // Assuming $5.00 for demonstration purposes
-    }
-
 </script>
-<script>
-    // Toggle category dropdown visibility
-    document.getElementById('menu-category-btn').addEventListener('click', function () {
-        const dropdownContent = document.getElementById('menu-category-dropdown');
-        dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-    });
-
-    // Add item to cart
-    function addToCart(itemName) {
-        const cartItemsContainer = document.getElementById('right-cart-items');
-        const cartTotal = document.getElementById('right-cart-total');
-
-        // Check if item is already in the cart
-        let existingItem = cartItemsContainer.querySelector(`#cart-item-${itemName}`);
-        if (!existingItem) {
-            const newItem = document.createElement('div');
-            newItem.id = `cart-item-${itemName}`;
-            newItem.classList.add('cart-item');
-            newItem.innerHTML = `<p>${itemName}</p><button class="remove-btn" onclick="removeFromCart('${itemName}')">Remove</button>`;
-            cartItemsContainer.appendChild(newItem);
-        }
-
-        // Update cart total
-        updateCartTotal();
-    }
-
-    // Remove item from cart
-    function removeFromCart(itemName) {
-        const item = document.getElementById(`cart-item-${itemName}`);
-        if (item) {
-            item.remove();
-        }
-
-        // Update cart total
-        updateCartTotal();
-    }
-
-    // Update cart total
-    function updateCartTotal() {
-        const cartItems = document.querySelectorAll('.cart-item');
-        let total = 0;
-
-        cartItems.forEach(item => {
-            // Get item price (for now, hardcoding for demo purposes)
-            const price = 30; // Example price, could be dynamically set based on item added
-            total += price;
-        });
-
-        document.getElementById('right-cart-total').textContent = `$${total.toFixed(2)}`;
-    }
-
-    // Open popup
-    document.getElementById('about-us-btn').addEventListener('click', function () {
-        document.getElementById('about-us-popup').style.display = 'flex';
-    });
-
-    document.getElementById('contact-btn').addEventListener('click', function () {
-        document.getElementById('contact-popup').style.display = 'flex';
-    });
-
-    // Close popup
-    function closePopup(id) {
-        document.getElementById(id).style.display = 'none';
-    }
-
-    // Redirect to cart page
-    function redirectToCart() {
-        window.location.href = 'cart.html';
-    }
-</script>
-
 
 </body>
 </html>
