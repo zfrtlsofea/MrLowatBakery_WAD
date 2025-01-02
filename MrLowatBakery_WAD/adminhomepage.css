@@ -240,3 +240,48 @@ header .logout-btn:hover {
     background-color: #FF6700; /* Orange color */
     color: white;
 }
+
+.category-container {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #FF6700;
+            height: 400px; /* Fixed height for scrollable content */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+        .category-header {
+            font-size: 1.5em;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .items-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .item-card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            width: 300px;
+            background-color: #f9f9f9;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .item-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .item-card input,
+        .item-card textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
