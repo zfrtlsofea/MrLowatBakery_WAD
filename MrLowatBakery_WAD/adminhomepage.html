@@ -24,6 +24,7 @@
         <button class="nav-btn" onclick="showOrders()">Orders</button>
         <button class="nav-btn" onclick="showProducts()">Products</button>
         <button class="nav-btn" onclick="showSummaryTransaction()">Transaction</button>
+        <button class="nav-btn" onclick="showRegisteredMember()">Registered Member</button>
     </div>
 
     <!-- Middle Section (Content) -->
@@ -61,7 +62,6 @@
                 </form>
             </div>
         </div>
-
         <!-- Orders Section -->
         <div class="orders-content section-content" style="display: none;">
             <h2 class="section-title">Orders</h2>
@@ -636,6 +636,10 @@
         resetSections();
         document.querySelector('.menu-content').style.display = 'block';
     }
+    function showRegisteredMember() {
+    // Redirect to the Registered Member page
+    window.location.href = "adminuser.html";
+}
 </script>
 
 </body>
