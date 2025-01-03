@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Page</title>
-    <link rel="stylesheet" href="payment.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 <header>
     <h1>Mr. Lowat Bakery</h1>
     <div class="icon-links">
-        <a href="index.html">
+        <a href="homepage.html">
             <i class="fas fa-home"></i>
             <span>Home</span>
         </a>
@@ -29,6 +29,46 @@
         </a>
     </div>
 </header>
+<!-- About Us Popup -->
+<div class="popup-overlay" id="about-us-popup">
+    <div class="popup-content">
+        <h2>About Us</h2>
+        <p>Mr. Lowat Bakery is a home-based and family-owned bakery that has been serving the community for years.
+            We offer a wide range of freshly baked goods, including brownies, cheese tarts, cakes, and cupcakes. Our products are made with the finest ingredients and are baked fresh daily. Whether you're looking for a sweet treat or a snack, we have something for everyone. Visit us today and experience the delicious taste of Mr. Lowat Bakery.</p>
+        <button class="popup-close" onclick="closePopup('about-us-popup')">Close</button>
+    </div>
+</div>
+
+<!-- Contact Popup -->
+<div class="popup-overlay" id="contact-popup">
+    <div class="popup-content">
+        <h2>Contact</h2>
+        <p>Phone: 016-402-5451</p>
+        <p><a href="https://api.whatsapp.com/send/?phone=60164025451" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></p>
+        <p>
+            Follow us on social media:
+            <a href="https://www.facebook.com/mrlowatbakery/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>,
+            <a href="https://www.instagram.com/mrlowatbake/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        </p>
+        <button class="popup-close" onclick="closePopup('contact-popup')">Close</button>
+    </div>
+</div>
+<script>
+    // Open "About Us" popup
+        document.getElementById('about-us-btn').addEventListener('click', function() {
+            document.getElementById('about-us-popup').style.display = 'flex';
+        });
+
+        // Open "Contact Us" popup
+        document.getElementById('contact-btn').addEventListener('click', function() {
+            document.getElementById('contact-popup').style.display = 'flex';
+        });
+
+        // Close popup function
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+</script>
 
 <main>
     <div class="payment-container">
@@ -59,6 +99,26 @@
                     <label for="address">Delivery Address:</label>
                     <textarea id="address" placeholder="Enter your delivery address" required></textarea>
                 </div>
+
+                <div id="delivery-time-section">
+                    <h3>Select Delivery Time</h3>
+                    <select id="delivery-time">
+                        <!-- Options for delivery times -->
+                        <option value="09:00">09:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="13:00">01:00 PM</option>
+                        <option value="14:00">02:00 PM</option>
+                        <option value="15:00">03:00 PM</option>
+                        <option value="16:00">04:00 PM</option>
+                        <option value="17:00">05:00 PM</option>
+                        <option value="18:00">06:00 PM</option>
+                        <option value="19:00">07:00 PM</option>
+                        <option value="20:00">08:00 PM</option>
+                    </select>
+                </div>
+
 
                 <!-- Delivery Date Section -->
                 <div class="form-section">

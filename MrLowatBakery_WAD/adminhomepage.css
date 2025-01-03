@@ -562,3 +562,147 @@ table tr:hover {
         padding: 15px;
     }
 }
+
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3 {
+    color: #ff9800;
+    text-align: center;
+}
+
+/* Form Styles */
+form {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+form label {
+    flex-basis: 100%;
+    font-weight: bold;
+}
+
+form input, form select, form button {
+    flex-basis: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form input[type="file"] {
+    padding: 0;
+}
+
+form button {
+    background-color: #ff9800;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #e68900;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table th {
+    background-color: #fff2e5;
+    color: #ff9800;
+    font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #fff7ed;
+}
+
+table tbody tr:hover {
+    background-color: #ffe5cc;
+}
+
+/* Button Styles */
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button.edit-btn, button.edit-category-btn {
+    background-color: #ffa726;
+    color: #fff;
+}
+
+button.delete-btn, button.delete-category-btn {
+    background-color: #ff7043;
+    color: #fff;
+}
+
+button.edit-btn:hover, button.edit-category-btn:hover {
+    background-color: #fb8c00;
+}
+
+button.delete-btn:hover, button.delete-category-btn:hover {
+    background-color: #f4511e;
+}
+
+/* Image Styling */
+.product-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+/* Additional Styling for Category Management */
+.category-list {
+    margin-bottom: 20px;
+}
+
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff7ed;
+    margin-bottom: 5px;
+}
+
+.category-item button {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+.category-item button.edit-btn {
+    background-color: #ffa726;
+}
+
+.category-item button.delete-btn {
+    background-color: #ff7043;
+}
