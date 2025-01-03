@@ -39,7 +39,7 @@
     <!-- Left Section -->
     <div class="left-section">
         <h3>Navigation</h3>
-        <button class="nav-btn" onclick="location.href='login.html'"><i class="fas fa-user"></i> Profile</button>
+        <button class="nav-btn" onclick="location.href='register.html'"><i class="fas fa-user"></i> Profile</button>
         <button id="menu-category-btn" class="nav-btn dropdown-btn"><i class="fas fa-cake"></i> Menu Category</button>
         <div id="menu-category-dropdown" class="dropdown-content">
             <button onclick="showCategory('cake')" class="light-orange">Cake</button>
@@ -49,8 +49,8 @@
             <button onclick="showCategory('burnedCheesecake')" class="light-orange">Burned Cheesecake</button>
             <button onclick="showCategory('promotion')" class="light-orange">Special Promotion</button>
         </div>
-        <button class="nav-btn" onclick="location.href='login.html'"><i class="fas fa-shopping-cart"></i> Cart</button>
-        <button class="nav-btn" onclick="location.href='login.html'"><i class="fas fa-receipt"></i> My Orders</button>
+        <button class="nav-btn" onclick="location.href='register.html'"><i class="fas fa-shopping-cart"></i> Cart</button>
+        <button class="nav-btn" onclick="location.href='register.html'"><i class="fas fa-receipt"></i> My Orders</button>
     </div>
 
     <!-- Middle Section -->
@@ -166,7 +166,7 @@
 
         // Redirect to the login page after a delay
         setTimeout(() => {
-            window.location.href = "login.html";
+            window.location.href = "register.html";
         }, redirectDelay);
     });
 
