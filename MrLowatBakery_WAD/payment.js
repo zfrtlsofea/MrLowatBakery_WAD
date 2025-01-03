@@ -1,20 +1,28 @@
 // payment.js
 
-// Sample profile object (this could come from a database or API in real scenarios)
-const profile = {
-    name: 'John Doe',
-    email: 'johndoe@example.com',
-    address: '123 Main St, Apt 4B, Cityville, State, 12345'
-};
+document.getElementById('submit-payment').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent page reload on form submission
 
-// Function to populate the address field with the customer's profile data
-function populateProfileData() {
-    const addressField = document.getElementById('address');
+    // Get form values
+    const paymentMethod = document.getElementById('payment-method').value;
+    const deliveryTime = document.getElementById('delivery-time').value;
+    const address = document.getElementById('address').value;
+    const instructions = document.getElementById('instructions').value;
 
-    if (profile && profile.address) {
-        addressField.value = profile.address; // Auto-fill the address field
+    // Basic validation: Check if required fields are filled
+    if (!deliveryTime || !address) {
+        alert("Please fill out all required fields.");
+    } else {
+        // Here, you would typically submit the data to a server, for now, we just show an alert
+        alert(`
+            Order Summary:
+            Payment Method: ${paymentMethod}
+            Delivery Time: ${deliveryTime}
+            Delivery Address: ${address}
+            Special Instructions: ${instructions || "None"}
+        `);
+
+        // Optionally, redirect the user to a confirmation page or thank you page
+        window.location.href = "thank-you.html"; // Replace with your actual thank-you or confirmation page
     }
-}
-
-// Run the function when the page loads
-document.addEventListener('DOMContentLoaded', populateProfileData);
+});

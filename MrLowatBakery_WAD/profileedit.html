@@ -9,22 +9,69 @@
 </head>
 <body>
 <header>
-    <nav>
-        <h1>Mr. Lowat Bakery</h1>
-        <div class="nav-links">
-            <ul>
-                <li><a href="index.html"><i class="fas fa-home"></i>Home</a></li>
-                <li><a href="menu.html"><i class="fas fa-cake"></i>Menu</a></li>
-                <li><a href="https://api.whatsapp.com/send/?phone=60164025451"><i class="fas fa-phone"></i>Contact</a></li>
-                <li><a href="setting.html"><i class="fas fa-user"></i>Account</a></li>
-            </ul>
-        </div>
-    </nav>
+    <h1>Mr. Lowat Bakery</h1>
+    <div class="icon-links">
+        <a href="homepage.html">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" id="about-us-btn">
+            <i class="fas fa-info-circle"></i>
+            <span>About Us</span>
+        </a>
+        <a href="#" id="contact-btn">
+            <i class="fas fa-phone-alt"></i>
+            <span>Contact</span>
+        </a>
+        <a href="profile.html">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </div>
 </header>
+<!-- About Us Popup -->
+<div class="popup-overlay" id="about-us-popup">
+    <div class="popup-content">
+        <h2>About Us</h2>
+        <p>Mr. Lowat Bakery is a home-based and family-owned bakery that has been serving the community for years.
+            We offer a wide range of freshly baked goods, including brownies, cheese tarts, cakes, and cupcakes. Our products are made with the finest ingredients and are baked fresh daily. Whether you're looking for a sweet treat or a snack, we have something for everyone. Visit us today and experience the delicious taste of Mr. Lowat Bakery.</p>
+        <button class="popup-close" onclick="closePopup('about-us-popup')">Close</button>
+    </div>
+</div>
 
+<!-- Contact Popup -->
+<div class="popup-overlay" id="contact-popup">
+    <div class="popup-content">
+        <h2>Contact</h2>
+        <p>Phone: 016-402-5451</p>
+        <p><a href="https://api.whatsapp.com/send/?phone=60164025451" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></p>
+        <p>
+            Follow us on social media:
+            <a href="https://www.facebook.com/mrlowatbakery/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>,
+            <a href="https://www.instagram.com/mrlowatbake/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+        </p>
+        <button class="popup-close" onclick="closePopup('contact-popup')">Close</button>
+    </div>
+</div>
+<script>
+    // Open "About Us" popup
+        document.getElementById('about-us-btn').addEventListener('click', function() {
+            document.getElementById('about-us-popup').style.display = 'flex';
+        });
+
+        // Open "Contact Us" popup
+        document.getElementById('contact-btn').addEventListener('click', function() {
+            document.getElementById('contact-popup').style.display = 'flex';
+        });
+
+        // Close popup function
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+</script>
 <main>
     <form id="profileForm">
-        <h1>Profile</h1>
+        <h1>Profile Edit</h1>
         <p>Manage and update your account details.</p>
 
         <div class="form-group">
@@ -54,10 +101,9 @@
 
         <div class="form-button">
             <button type="submit">Save Changes</button>
-            <button type="reset">Clear</button>
         </div>
     </form>
-    <p>Want to order? <a href="menu.html">View our menu</a>.</p>
+
 </main>
 
 <footer>

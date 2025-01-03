@@ -16,7 +16,7 @@
         <div class="dropdown" id="categoryDropdown"></div>
     </div>
     <div class="icon-links">
-        <a href="index.html">
+        <a href="homepage.html">
             <i class="fas fa-home"></i>
             <span>Home</span>
         </a>
@@ -39,7 +39,7 @@
     <!-- Left Section -->
     <div class="left-section">
         <h3>Navigation</h3>
-        <button class="nav-btn" onclick="location.href='login.html'"><i class="fas fa-user"></i> Profile</button>
+        <button class="nav-btn" onclick="location.href='profile.html'"><i class="fas fa-user"></i> Profile</button>
         <button id="menu-category-btn" class="nav-btn dropdown-btn"><i class="fas fa-cake"></i> Menu Category</button>
         <div id="menu-category-dropdown" class="dropdown-content">
             <button onclick="showCategory('cake')" class="light-orange">Cake</button>
@@ -49,8 +49,9 @@
             <button onclick="showCategory('burnedCheesecake')" class="light-orange">Burned Cheesecake</button>
             <button onclick="showCategory('promotion')" class="light-orange">Special Promotion</button>
         </div>
-        <button class="nav-btn" onclick="location.href='login.html'"><i class="fas fa-shopping-cart"></i> Cart</button>
-        <button class="nav-btn" onclick="location.href='login.html'"><i class="fas fa-receipt"></i> My Orders</button>
+        <button class="nav-btn" onclick="location.href='cart.html'"><i class="fas fa-shopping-cart"></i> Cart</button>
+        <button class="nav-btn" onclick="location.href='orderhistory.html'"><i class="fas fa-receipt"></i> My Orders</button>
+        <button class="nav-btn" onclick="location.href='index.html'"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
 
     <!-- Middle Section -->
@@ -141,7 +142,7 @@
             <h4>Total:</h4>
             <p id="right-cart-total">$0.00</p>
         </div>
-        <button class="checkout-btn" onclick="window.location.href='login.html'">Proceed to Checkout</button>
+        <button class="checkout-btn" onclick="window.location.href='cart.html'">Proceed to Checkout</button>
     </div>
 
     <!-- About Us Popup -->
@@ -400,6 +401,7 @@
         // Append the cart item to the cart section
         cartSection.appendChild(cartItem);
     }
+
     </script>
 
 </body>
