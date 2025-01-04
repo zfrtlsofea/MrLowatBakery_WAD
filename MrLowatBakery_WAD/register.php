@@ -2,16 +2,27 @@
 //TOK D PAKE
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    // Sanitize input to prevent XSS
+    $name = htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
+    $password = $_POST['password']; // Will be hashed, so no need to escape here
     $confirmPassword = $_POST['confirmPassword'];
-    $address = $_POST['address'];
-    $tel = $_POST['tel'];
+    $address = htmlspecialchars($_POST['address'], ENT_QUOTES, 'UTF-8');
+    $tel = htmlspecialchars($_POST['tel'], ENT_QUOTES, 'UTF-8');
 
     // Check if passwords match
     if ($password !== $confirmPassword) {
         die("Passwords do not match!");
+    }
+
+    // Validate email format
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        die("Invalid email format!");
+    }
+
+    // Validate telephone format (e.g., 10-digit numbers)
+    if (!preg_match('/^[0-9]{10}$/', $tel)) {
+        die("Invalid telephone number!");
     }
 
     // Hash the password for security
@@ -19,29 +30,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Database connection
     $servername = "localhost";
-    $username = "root";
-    $password = "";
+    $dbUsername = "root";
+    $dbPassword = "";
     $dbname = "mrlowatbakery";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
+    // Create connection with error handling
+    $conn = new mysqli($servername, $dbUsername, $dbPassword, $dbname);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Insert user data into the database
+    // Use prepared statements to prevent SQL injection
     $sql = "INSERT INTO users (name, email, password, address, tel) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        die("Statement preparation failed: " . $conn->error);
+    }
     $stmt->bind_param("sssss", $name, $email, $hashedPassword, $address, $tel);
 
+    // Execute the statement and check for errors
     if ($stmt->execute()) {
         echo "Registration successful! <a href='login.html'>Login here</a>";
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Error: " . htmlspecialchars($stmt->error, ENT_QUOTES, 'UTF-8');
     }
 
+    // Close the statement and connection
     $stmt->close();
     $conn->close();
 }
