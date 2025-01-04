@@ -75,6 +75,11 @@
                 <p style="font-size: 0.9rem;">Moist and flavorful cakes perfect for celebrations.</p>
             </div>
             <div class="featured-item">
+                <img src="images/feature_burned_cheesecake_6inch.jpg" alt="Burned Cheesecake">
+                <h3 style="font-size: 1rem;">Burned Cheesecake</h3>
+                <p style="font-size: 0.9rem;">Spanish dessert with a burnt top and creamy interior.</p>
+            </div>
+            <div class="featured-item">
                 <img src="images/feature_tart.jpg" alt="Tart">
                 <h3 style="font-size: 1rem;">Tart</h3>
                 <p style="font-size: 0.9rem;">Crispy pastry filled with sweet or savory fillings.</p>
@@ -403,32 +408,34 @@ function navigateToCategory(categoryName) {
 }
 
 function showCategory(category) {
-    // Get the category data
-    const items = categories[category.toLowerCase()] || [];
-    
-    // Select the middle section
     const middleSection = document.querySelector('.middle-section');
-    
-    // Replace the middle section content with the selected category items
+    const items = categories[category.toLowerCase()] || [];
+
+    // Clear and populate middle section
     middleSection.innerHTML = `
         <h2>${category.charAt(0).toUpperCase() + category.slice(1)}</h2>
         <div class="category-list">
-            ${items.map(item => `
-                <div class="category-item">
-                    <img src="${item.image}" alt="${item.name}" class="category-image">
-                    <div class="category-details">
-                        <h3>${item.name}</h3>
-                        <p>${item.description}</p>
-                        <p><strong>Price: $${item.price}</strong></p>
+            ${items.length > 0
+                ? items.map(item => `
+                    <div class="category-item">
+                        <img src="${item.image}" alt="${item.name}" class="category-image">
+                        <div class="category-details">
+                            <h3>${item.name}</h3>
+                            <p>${item.description}</p>
+                            <p><strong>Price: $${item.price.toFixed(2)}</strong></p>
+                        </div>
+                        <button class="customize-btn" onclick="addToCart('${item.name}', '${item.image}', '${item.description}', ${item.price})">
+                            <i class="fas fa-plus"></i>
+                        </button>
                     </div>
-                    <button class="customize-btn" onclick="addToCart('${item.name}', '${item.image}', '${item.description}', ${item.price})">
-                        <i class="fas fa-plus"></i> Add to Cart
-                    </button>
-                </div>
-            `).join('')}
+                `).join('')
+                : '<p>No items available in this category.</p>'
+            }
         </div>
     `;
 }
+
+
 
 
     // Add item to cart
