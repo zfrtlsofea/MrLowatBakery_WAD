@@ -11,9 +11,11 @@
 <body>
 <header>
     <h1>Mr. Lowat Bakery</h1>
-    <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Search for categories...">
-        <div class="dropdown" id="categoryDropdown"></div>
+    <!-- Search Bar for Categories -->
+    <div class="search-bar">
+    <input type="text" id="categorySearchInput" placeholder="Search for categories..." onkeyup="searchCategories()">
+    </div>
+
     </div>
     <div class="icon-links">
         <a href="index.html">
@@ -39,7 +41,7 @@
     <!-- Left Section -->
     <div class="left-section">
         <h3>Navigation</h3>
-        <button class="nav-btn" onclick="location.href='register.html'"><i class="fas fa-user"></i> Profile</button>
+        <button class="nav-btn" onclick="location.href='login.html'"><i class="fas fa-user"></i> Profile</button>
         <button id="menu-category-btn" class="nav-btn dropdown-btn"><i class="fas fa-cake"></i> Menu Category</button>
         <div id="menu-category-dropdown" class="dropdown-content">
             <button onclick="showCategory('cake')" class="light-orange">Cake</button>
@@ -49,8 +51,8 @@
             <button onclick="showCategory('burnedCheesecake')" class="light-orange">Burned Cheesecake</button>
             <button onclick="showCategory('promotion')" class="light-orange">Special Promotion</button>
         </div>
-        <button class="nav-btn" onclick="location.href='register.html'"><i class="fas fa-shopping-cart"></i> Cart</button>
-        <button class="nav-btn" onclick="location.href='register.html'"><i class="fas fa-receipt"></i> My Orders</button>
+        <button class="nav-btn" onclick="location.href='login.html'"><i class="fas fa-shopping-cart"></i> Cart</button>
+        <button class="nav-btn" onclick="location.href='login.html'"><i class="fas fa-receipt"></i> My Orders</button>
     </div>
 
     <!-- Middle Section -->
@@ -166,7 +168,7 @@
 
         // Redirect to the login page after a delay
         setTimeout(() => {
-            window.location.href = "register.html";
+            window.location.href = "login.html";
         }, redirectDelay);
     });
 
@@ -441,6 +443,28 @@ function addToCart(name, image, description) {
     // Append the cart item to the cart section
     cartSection.appendChild(cartItem);
 }
+
+/// Function to search categories
+function searchCategories() {
+    const input = document.getElementById('categorySearchInput');
+    const filter = input.value.toLowerCase(); // Get the search input and convert to lowercase
+    const dropdown = document.getElementById('menu-category-dropdown'); // Select the category dropdown
+    const buttons = dropdown.getElementsByTagName('button'); // Get all category buttons
+
+    // Loop through all category buttons
+    for (let i = 0; i < buttons.length; i++) {
+        const button = buttons[i];
+        const textValue = button.textContent || button.innerText; // Get the text content of the button
+
+        // Show or hide the button based on the search result
+        if (textValue.toLowerCase().indexOf(filter) > -1) {
+            button.style.display = ''; // Show the button if it matches
+        } else {
+            button.style.display = 'none'; // Hide the button if it doesn't match
+        }
+    }
+}
+
 </script>
 
 </body>
