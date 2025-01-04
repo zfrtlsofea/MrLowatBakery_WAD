@@ -79,6 +79,21 @@ function validateLoginForm(e) {
   }
 }
 
+//Show password
+function showPassword() {
+  var x = document.getElementById("password");
+  var y = document.getElementById("confirmPassword");
+  if (x.type === "password") {
+    x.type = "text";
+    y.type = "text";
+  }
+  else {
+    x.type = "password";
+    y.type = "password";
+  }
+}
+
+
 // Event listeners for forms
 document.addEventListener('DOMContentLoaded', function () {
   const registerForm = document.getElementById('registerForm');
