@@ -69,7 +69,7 @@
             <!-- Order List Table -->
             <div class="order-list">
                 <h3>Order List</h3>
-                <table id="order-table">
+                <table>
                     <thead>
                     <tr>
                         <th>Order ID</th>
@@ -81,43 +81,40 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>001</td>
+                        <td>1</td>
                         <td>John Doe</td>
                         <td>2025-01-02</td>
-                        <td>Not Paid</td>
+                        <td>Pending</td>
                         <td><button onclick="viewOrderDetails(1)">View</button></td>
                     </tr>
                     <tr>
-                        <td>002</td>
+                        <td>2</td>
                         <td>Jane Smith</td>
                         <td>2025-01-01</td>
-                        <td>Paid</td>
+                        <td>Shipped</td>
                         <td><button onclick="viewOrderDetails(2)">View</button></td>
                     </tr>
-                    <!-- Add more rows dynamically as needed -->
                     </tbody>
                 </table>
             </div>
 
-            <!-- Order Details (Hidden until an order is clicked) -->
+            <!-- Order Details -->
             <div class="order-details" id="order-details" style="display: none;">
                 <h3>Order Details</h3>
-                <div class="order-actions">
 
-                </div>
                 <!-- Customer Information -->
                 <div class="customer-details">
                     <h4>Customer Information</h4>
                     <p><strong>Customer Name:</strong> <span id="customer-name"></span></p>
                     <p><strong>Email:</strong> <span id="customer-email"></span></p>
-                    <p><strong>Contact Number:</strong> <span id="customer-contact"></span></p>
-                    <p><strong>Delivery Address:</strong> <span id="customer-address"></span></p>
+                    <p><strong>Contact:</strong> <span id="customer-contact"></span></p>
+                    <p><strong>Address:</strong> <span id="customer-address"></span></p>
                 </div>
 
                 <!-- Order Items -->
                 <div class="order-items">
                     <h4>Order Items</h4>
-                    <table id="order-items-table">
+                    <table>
                         <thead>
                         <tr>
                             <th>Item</th>
@@ -126,168 +123,141 @@
                             <th>Total</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>Chocolate Cake</td>
-                            <td>2</td>
-                            <td>$15.00</td>
-                            <td>$30.00</td>
-                        </tr>
-                        <tr>
-                            <td>Vanilla Cupcake</td>
-                            <td>3</td>
-                            <td>$5.00</td>
-                            <td>$15.00</td>
-                        </tr>
-                        <!-- Add more rows dynamically as needed -->
+                        <tbody id="order-items-table">
                         </tbody>
                     </table>
-                </div>
-
-                <!-- Payment Information -->
-                <div class="payment-details">
-                    <h4>Payment Information</h4>
-                    <p><strong>Payment Method:</strong> Credit Card</p>
-                    <p><strong>Transaction ID:</strong> 1234567890</p>
-                    <p><strong>Amount Paid:</strong> $45.00</p>
                 </div>
 
                 <!-- Shipping Information -->
                 <div class="shipping-details">
                     <h4>Shipping Information</h4>
-                    <p><strong>Shipping Method:</strong> Standard Shipping</p>
-                    <p><strong>Tracking Number:</strong> ABC123456789</p>
-                    <p><strong>Shipping Status:</strong> In Transit</p>
+                    <label for="tracking-number">Tracking Number:</label>
+                    <input type="text" id="tracking-number" class="editable-field">
+                    <label for="shipping-status">Shipping Status:</label>
+                    <select id="shipping-status" class="editable-field">
+                        <option value="In Transit">In Transit</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    <button class="save-button" onclick="updateShippingInfo()">Save Shipping Info</button>
                 </div>
 
                 <!-- Order Status -->
                 <div class="order-status">
-                    <h4>Order Status: <span id="order-status"></span></h4>
-                    <button id="toggle-status" onclick="toggleOrderStatus()">Mark as Shipped</button>
+                    <h4>Order Status:</h4>
+                    <select id="order-status" class="editable-field">
+                        <option value="Pending">Pending</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                    <button class="save-button" onclick="updateOrderStatus()">Save Order Status</button>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="payment-method">
+                    <h4>Payment Method:</h4>
+                    <p id="payment-method"></p> <!-- Display payment method -->
                 </div>
 
                 <!-- Back Button -->
-                <button onclick="backToOrderList()">Back to Order List</button>
+                <button class="back-button" onclick="backToOrderList()">Back to Order List</button>
             </div>
         </div>
 
         <script>
-            // Simulate Order Data
             const orders = [
                 {
                     orderId: 1,
                     customerName: 'John Doe',
-                    customerEmail: 'johndoe@example.com',
-                    customerContact: '0123456789',
-                    customerAddress: '123, Jalan ABC',
+                    email: 'johndoe@example.com',
+                    contact: '0123456789',
+                    address: '123, Jalan ABC',
                     orderDate: '2025-01-02',
-                    paymentStatus: 'Not Paid',
                     items: [
-                        { name: 'Chocolate Cake', quantity: 2, price: 15.00 },
-                        { name: 'Vanilla Cupcake', quantity: 3, price: 5.00 }
+                        { name: 'Chocolate Cake', quantity: 2, price: 15.00 }
                     ],
-                    paymentMethod: 'Credit Card',
-                    transactionId: '1234567890',
-                    amountPaid: 45.00,
-                    shippingMethod: 'Standard Shipping',
-                    trackingNumber: 'ABC123456789',
+                    trackingNumber: 'ABC123',
                     shippingStatus: 'In Transit',
-                    orderStatus: 'Pending'
+                    orderStatus: 'Pending',
+                    paymentMethod: 'Credit Card' // Added payment method
                 },
                 {
                     orderId: 2,
                     customerName: 'Jane Smith',
-                    customerEmail: 'janesmith@example.com',
-                    customerContact: '0198765432',
-                    customerAddress: '456, Jalan XYZ',
+                    email: 'janesmith@example.com',
+                    contact: '0198765432',
+                    address: '456, Jalan XYZ',
                     orderDate: '2025-01-01',
-                    paymentStatus: 'Paid',
                     items: [
                         { name: 'Red Velvet Cake', quantity: 1, price: 20.00 }
                     ],
-                    paymentMethod: 'PayPal',
-                    transactionId: '0987654321',
-                    amountPaid: 20.00,
-                    shippingMethod: 'Express Shipping',
-                    trackingNumber: 'XYZ987654321',
-                    shippingStatus: 'Shipped',
-                    orderStatus: 'Shipped'
+                    trackingNumber: 'XYZ987',
+                    shippingStatus: 'Delivered',
+                    orderStatus: 'Shipped',
+                    paymentMethod: 'PayPal' // Added payment method
                 }
             ];
 
-            // View Order Details Function
+            let selectedOrderId;
+
+            function toggleOrders() {
+                document.querySelector('.orders-content').style.display = 'block';
+            }
+
             function viewOrderDetails(orderId) {
                 const order = orders.find(o => o.orderId === orderId);
+                selectedOrderId = orderId;
 
                 if (order) {
-                    // Display customer details
                     document.getElementById('customer-name').textContent = order.customerName;
-                    document.getElementById('customer-email').textContent = order.customerEmail;
-                    document.getElementById('customer-contact').textContent = order.customerContact;
-                    document.getElementById('customer-address').textContent = order.customerAddress;
+                    document.getElementById('customer-email').textContent = order.email;
+                    document.getElementById('customer-contact').textContent = order.contact;
+                    document.getElementById('customer-address').textContent = order.address;
 
-                    // Display order items
-                    let itemsHTML = '';
-                    order.items.forEach(item => {
-                        itemsHTML += `
-                            <tr>
-                                <td>${item.name}</td>
-                                <td>${item.quantity}</td>
-                                <td>$${item.price}</td>
-                                <td>$${(item.price * item.quantity).toFixed(2)}</td>
-                            </tr>
-                        `;
-                    });
-                    document.getElementById('order-items-table').querySelector('tbody').innerHTML = itemsHTML;
+                    const itemsHTML = order.items.map(item => `
+                        <tr>
+                            <td>${item.name}</td>
+                            <td>${item.quantity}</td>
+                            <td>$${item.price.toFixed(2)}</td>
+                            <td>$${(item.quantity * item.price).toFixed(2)}</td>
+                        </tr>
+                    `).join('');
+                    document.getElementById('order-items-table').innerHTML = itemsHTML;
 
-                    // Display payment details
-                    document.querySelector('.payment-details').innerHTML = `
-                        <h4>Payment Information</h4>
-                        <p><strong>Payment Method:</strong> ${order.paymentMethod}</p>
-                        <p><strong>Transaction ID:</strong> ${order.transactionId}</p>
-                        <p><strong>Amount Paid:</strong> $${order.amountPaid.toFixed(2)}</p>
-                    `;
+                    document.getElementById('tracking-number').value = order.trackingNumber;
+                    document.getElementById('shipping-status').value = order.shippingStatus;
+                    document.getElementById('order-status').value = order.orderStatus;
+                    document.getElementById('payment-method').textContent = order.paymentMethod; // Display payment method
 
-                    // Display shipping details
-                    document.querySelector('.shipping-details').innerHTML = `
-                        <h4>Shipping Information</h4>
-                        <p><strong>Shipping Method:</strong> ${order.shippingMethod}</p>
-                        <p><strong>Tracking Number:</strong> ${order.trackingNumber}</p>
-                        <p><strong>Shipping Status:</strong> ${order.shippingStatus}</p>
-                    `;
-
-                    // Display order status and toggle button
-                    document.getElementById('order-status').textContent = order.orderStatus;
-                    document.getElementById('toggle-status').textContent = order.orderStatus === 'Shipped' ? 'Mark as Pending' : 'Mark as Shipped';
-
-                    // Show the order details section
                     document.querySelector('.order-list').style.display = 'none';
                     document.getElementById('order-details').style.display = 'block';
                 }
             }
 
-            // Toggle Order Status
-            function toggleOrderStatus() {
-                const orderId = 1; // Example order ID for simplicity
-                const order = orders.find(o => o.orderId === orderId);
-
-                if (order.orderStatus === 'Pending') {
-                    order.orderStatus = 'Shipped';
-                    document.getElementById('order-status').textContent = 'Shipped';
-                    document.getElementById('toggle-status').textContent = 'Mark as Pending';
-                } else {
-                    order.orderStatus = 'Pending';
-                    document.getElementById('order-status').textContent = 'Pending';
-                    document.getElementById('toggle-status').textContent = 'Mark as Shipped';
+            function updateShippingInfo() {
+                const order = orders.find(o => o.orderId === selectedOrderId);
+                if (order) {
+                    order.trackingNumber = document.getElementById('tracking-number').value;
+                    order.shippingStatus = document.getElementById('shipping-status').value;
+                    alert('Shipping info updated!');
                 }
             }
 
-            // Return to Order List
+            function updateOrderStatus() {
+                const order = orders.find(o => o.orderId === selectedOrderId);
+                if (order) {
+                    order.orderStatus = document.getElementById('order-status').value;
+                    alert('Order status updated!');
+                }
+            }
+
             function backToOrderList() {
                 document.querySelector('.order-list').style.display = 'block';
                 document.getElementById('order-details').style.display = 'none';
             }
         </script>
+
 
         <!-- Products Section (Initially hidden) -->
         <div class="products-content section-content" style="display: none;">
@@ -298,6 +268,13 @@
             <!-- Product Management Section -->
             <div id="product-management-section" style="display: none;">
                 <h2>Manage Products</h2>
+
+                <!-- Add Category Form -->
+                <form id="add-category-form">
+                    <label for="new-category-name">New Category Name:</label>
+                    <input type="text" id="new-category-name" placeholder="Enter new category name" required>
+                    <button type="submit">Add Category</button>
+                </form>
 
                 <!-- Add Product Form -->
                 <form id="product-form">
@@ -313,12 +290,7 @@
                     <label for="product-category">Category:</label>
                     <select id="product-category" required>
                         <option value="" disabled selected>Select category</option>
-                        <option value="Cake">Cake</option>
-                        <option value="Cupcake">Cupcake</option>
-                        <option value="Tart">Tart</option>
-                        <option value="Brownies">Brownies</option>
-                        <option value="Burned Cheesecake">Burned Cheesecake</option>
-                        <option value="Special Promotion">Special Promotion</option>
+                        <!-- Categories will be added dynamically -->
                     </select>
 
                     <label for="product-image">Product Image:</label>
@@ -342,6 +314,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <!-- Example row -->
                     <tr>
                         <td>1</td>
                         <td>Chocolate Cake</td>
@@ -357,20 +330,23 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
 
         <script>
             // Get references to the button and section
-const manageProductsBtn = document.getElementById('manage-products-btn');
-const productManagementSection = document.getElementById('product-management-section');
+            const manageProductsBtn = document.getElementById('manage-products-btn');
+            const productManagementSection = document.getElementById('product-management-section');
+            const addCategoryForm = document.getElementById('add-category-form');
+            const newCategoryInput = document.getElementById('new-category-name');
+            const productCategorySelect = document.getElementById('product-category');
 
-// Toggle visibility when the button is clicked
-manageProductsBtn.addEventListener('click', () => {
-    const isVisible = productManagementSection.style.display === 'block';
-    productManagementSection.style.display = isVisible ? 'none' : 'block';
-});
+            // Toggle visibility when the button is clicked
+            manageProductsBtn.addEventListener('click', () => {
+                const isVisible = productManagementSection.style.display === 'block';
+                productManagementSection.style.display = isVisible ? 'none' : 'block';
+            });
 
+            // data for products, categorized by type
             const data = {
         cake: [
             { name: "Tiered Sponge Cake (Vanilla)", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg", price: 70},
@@ -434,100 +410,124 @@ manageProductsBtn.addEventListener('click', () => {
         ]
         };
 
-         function showProducts() {
-    const productsContainer = document.getElementById("products-container");
-    productsContainer.innerHTML = ""; // Clear previous content
-    productsContainer.classList.add("center-content"); // Add centering class
 
-    for (const [category, items] of Object.entries(data)) {
-        // Create category container
-        const categoryContainer = document.createElement("div");
-        categoryContainer.classList.add("category-container");
-
-        // Create category header
-        const categoryHeader = document.createElement("div");
-        categoryHeader.classList.add("category-header");
-        categoryHeader.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-        categoryContainer.appendChild(categoryHeader);
-
-        // Create items container
-        const itemsContainer = document.createElement("div");
-        itemsContainer.classList.add("items-container");
-
-        items.forEach((item) => {
-            // Create item card
-            const itemCard = document.createElement("div");
-            itemCard.classList.add("item-card");
-
-            // Image preview and upload
-            const itemImage = document.createElement("img");
-            itemImage.src = item.image;
-            itemImage.alt = item.name;
-            itemCard.appendChild(itemImage);
-
-            const imageLabel = document.createElement("label");
-            imageLabel.textContent = "Upload Image:";
-            itemCard.appendChild(imageLabel);
-
-            const fileInput = document.createElement("input");
-            fileInput.type = "file";
-            fileInput.accept = "image/*";
-            fileInput.onchange = (event) => {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        item.image = e.target.result;
-                        itemImage.src = item.image;
-                    };
-                    reader.readAsDataURL(file);
+            // Function to display categories in the dropdown
+            function showCategories() {
+                productCategorySelect.innerHTML = '<option value="" disabled selected>Select category</option>'; // Clear existing options
+                for (const category in data) {
+                    const option = document.createElement("option");
+                    option.value = category;
+                    option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                    productCategorySelect.appendChild(option);
                 }
-            };
-            itemCard.appendChild(fileInput);
+            }
 
-            // Editable name
-            const nameLabel = document.createElement("label");
-            nameLabel.textContent = "Name:";
-            itemCard.appendChild(nameLabel);
+            // Function to display products
+            function showProducts() {
+                const productsContainer = document.getElementById("products-container");
+                productsContainer.innerHTML = ""; // Clear previous content
+                productsContainer.classList.add("center-content"); // Add centering class
 
-            const nameInput = document.createElement("input");
-            nameInput.type = "text";
-            nameInput.value = item.name;
-            nameInput.oninput = () => (item.name = nameInput.value);
-            itemCard.appendChild(nameInput);
+                for (const [category, items] of Object.entries(data)) {
+                    // Create category container
+                    const categoryContainer = document.createElement("div");
+                    categoryContainer.classList.add("category-container");
 
-            // Editable description
-            const descriptionLabel = document.createElement("label");
-            descriptionLabel.textContent = "Description:";
-            itemCard.appendChild(descriptionLabel);
+                    // Create category header
+                    const categoryHeader = document.createElement("div");
+                    categoryHeader.classList.add("category-header");
+                    categoryHeader.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                    categoryContainer.appendChild(categoryHeader);
 
-            const descriptionInput = document.createElement("textarea");
-            descriptionInput.value = item.description;
-            descriptionInput.oninput = () => (item.description = descriptionInput.value);
-            itemCard.appendChild(descriptionInput);
+                    // Create items container
+                    const itemsContainer = document.createElement("div");
+                    itemsContainer.classList.add("items-container");
 
-            // Editable price
-            const priceLabel = document.createElement("label");
-            priceLabel.textContent = "Price (RM):";
-            itemCard.appendChild(priceLabel);
+                    items.forEach((item, index) => {
+                        // Create item card
+                        const itemCard = document.createElement("div");
+                        itemCard.classList.add("item-card");
 
-            const priceInput = document.createElement("input");
-            priceInput.type = "number";
-            priceInput.step = "0.01";
-            priceInput.value = item.price;
-            priceInput.oninput = () => (item.price = parseFloat(priceInput.value));
-            itemCard.appendChild(priceInput);
+                        // Image preview and upload
+                        const itemImage = document.createElement("img");
+                        itemImage.src = item.image;
+                        itemImage.alt = item.name;
+                        itemCard.appendChild(itemImage);
 
-            itemsContainer.appendChild(itemCard);
-        });
+                        // Editable name
+                        const nameLabel = document.createElement("label");
+                        nameLabel.textContent = "Name:";
+                        itemCard.appendChild(nameLabel);
 
-        categoryContainer.appendChild(itemsContainer);
-        productsContainer.appendChild(categoryContainer);
-    }
-}
+                        const nameInput = document.createElement("input");
+                        nameInput.type = "text";
+                        nameInput.value = item.name;
+                        nameInput.oninput = () => (item.name = nameInput.value);
+                        itemCard.appendChild(nameInput);
 
-        showProducts();
+                        // Editable description
+                        const descriptionLabel = document.createElement("label");
+                        descriptionLabel.textContent = "Description:";
+                        itemCard.appendChild(descriptionLabel);
+
+                        const descriptionInput = document.createElement("textarea");
+                        descriptionInput.value = item.description;
+                        descriptionInput.oninput = () => (item.description = descriptionInput.value);
+                        itemCard.appendChild(descriptionInput);
+
+                        // Editable price
+                        const priceLabel = document.createElement("label");
+                        priceLabel.textContent = "Price (RM):";
+                        itemCard.appendChild(priceLabel);
+
+                        const priceInput = document.createElement("input");
+                        priceInput.type = "number";
+                        priceInput.step = "0.01";
+                        priceInput.value = item.price;
+                        priceInput.oninput = () => (item.price = parseFloat(priceInput.value));
+                        itemCard.appendChild(priceInput);
+
+                        // Add delete button functionality
+                        const deleteButton = document.createElement("button");
+                        deleteButton.classList.add("delete-btn");
+                        deleteButton.textContent = "Delete";
+                        deleteButton.addEventListener("click", () => {
+                            // Remove item from the category array
+                            data[category].splice(index, 1);
+                            showProducts(); // Re-render products after deletion
+                        });
+                        itemCard.appendChild(deleteButton);
+
+                        // Add item card to items container
+                        itemsContainer.appendChild(itemCard);
+                    });
+
+                    // Add items container to category container
+                    categoryContainer.appendChild(itemsContainer);
+                    productsContainer.appendChild(categoryContainer);
+                }
+            }
+
+            // Function to add a new category
+            addCategoryForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const newCategoryName = newCategoryInput.value.trim().toLowerCase();
+                if (newCategoryName && !data[newCategoryName]) {
+                    data[newCategoryName] = []; // Create new empty category
+                    showCategories(); // Re-render categories
+                    showProducts(); // Re-render products with new category
+                } else {
+                    alert('Category name must be unique and non-empty!');
+                }
+                newCategoryInput.value = ''; // Clear the input field
+            });
+
+            // Call showProducts and showCategories functions to load initial data
+            showCategories();
+            showProducts();
         </script>
+
+
 
         <!-- Users Section (Initially hidden) -->
         <div class="users-content section-content" style="display: none;">

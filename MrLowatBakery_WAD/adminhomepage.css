@@ -116,68 +116,91 @@ header .logout-btn:hover {
     color: #FF6700; /* Orange color */
 }
 
-/* Profile Section */
+/* Centering container for the profile section */
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+  background-color: #f9f9f9; /* Optional background color */
+  padding: 20px; /* Prevent content from touching the edges */
+}
+
+/* Profile content styling */
 .profile-content {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex-grow: 1; /* Allow this section to grow */
-    display: block;
+  width: 100%; /* Make it span the entire width of the container */
+  max-width: 800px; /* Optional: Set a maximum width for readability */
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: left; /* Ensure form elements align correctly */
 }
 
-.profile-content h2 {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
-    color: #FF6700; /* Orange color */
+/* Section title styling */
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
 }
 
-.profile-card {
-    background-color: #fafafa;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Form group styling */
+.form-group {
+  display: flex;
+  justify-content: space-between; /* Ensure equal space between label and input */
+  align-items: center; /* Vertically center the content */
+  margin-bottom: 20px;
 }
 
-.profile-card .form-group {
-    margin-bottom: 15px;
+/* Label styling for form elements */
+.form-group label {
+  width: 150px; /* Fixed width for labels */
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #555;
+  text-align: left;
 }
 
-.profile-card label {
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 8px;
+/* Input fields styling */
+.form-group input,
+.form-group select {
+  width: calc(100% - 160px); /* Adjust width to allow space for the label */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
 }
 
-.profile-card input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-    background-color: #f9f9f9;
-    transition: border 0.3s ease;
+/* Save Changes button styling */
+.save-changes-button {
+  width: auto; /* Allow button to have its own width */
+  padding: 12px 20px;
+  background-color: #FF6700; /* Custom orange color */
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: auto; /* Push button to the right */
+  margin-top: 20px; /* Space above the button */
 }
 
-.profile-card input:focus {
-    border-color: #FF6700; /* Orange focus color */
+.save-changes-button:hover {
+  background-color: #ff5500; /* Darker orange when hovered */
 }
 
-.profile-card button {
-    background-color: #FF6700; /* Orange color */
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    width: 100%;
-    transition: background-color 0.3s ease;
+/* Form container styling */
+.form-container {
+  display: flex;
+  flex-direction: column; /* Stack form groups vertically */
+  gap: 20px; /* Space between each form group */
 }
 
-.profile-card button:hover {
-    background-color: #E55C00; /* Dark orange on hover */
-}
+
 /* Product Management Section */
 .product-management {
     flex-grow: 1;
@@ -476,7 +499,8 @@ table tr:hover {
     margin-top: 20px;
 }
 
-.orders-list table th, .orders-list table td {
+.orders-list table th,
+.orders-list table td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
@@ -485,6 +509,41 @@ table tr:hover {
 .orders-list table th {
     background-color: #FF6700; /* Orange color */
     color: white;
+}
+
+/* Button Styling */
+button {
+    background-color: #FF6700; /* Orange to match the section */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 8px 16px; /* Padding */
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth effects */
+}
+
+/* Hover Effect */
+button:hover {
+    background-color: #e05e00; /* Slightly darker orange */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Disabled Button State */
+button:disabled {
+    background-color: #ccc; /* Greyed out */
+    color: #666; /* Lighter text */
+    cursor: not-allowed; /* Disabled cursor */
+}
+
+/* Back Button Specific */
+button.back-button {
+    background-color: #dc3545; /* Red */
+}
+
+button.back-button:hover {
+    background-color: #c82333; /* Darker red */
 }
 
 /* Category Section */
