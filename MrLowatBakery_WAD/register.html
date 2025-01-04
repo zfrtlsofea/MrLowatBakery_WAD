@@ -96,9 +96,13 @@
       </div>
 
       <div class="form-group">
-        <label for="gender">Gender:</label>
-        <input type="radio" name="gender" id="m" value="male"> Male
-        <input type="radio" name="gender" id="f" value="female"> Female
+        <label for="gender" class="form-label">Gender:</label>
+        <div class="radio-group">
+          <input type="radio" name="gender" id="m" value="male">
+          <label for="m" class="radio-label">Male</label>
+          <input type="radio" name="gender" id="f" value="female">
+          <label for="f" class="radio-label">Female</label>
+        </div>
       </div>
 
       <div class="form-group">
@@ -123,8 +127,8 @@
 
       <div class="form-button">
         <button type="submit">Register</button>
-        <button type="reset">Clear</button>
       </div>
+
     </form>
     <p>Already have an account? <a href="login.html">Login here</a>.</p>
   </main>

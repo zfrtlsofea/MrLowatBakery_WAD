@@ -237,6 +237,63 @@ form button:hover {
   background: #e55c00;
 }
 
+
+/* Styling for the form group container */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align the text and buttons */
+  background: #fff; /* Optional background for the form */
+}
+
+/* Label for the gender text */
+.form-label {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Styling for the radio group container */
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+/* Hide the default radio buttons */
+input[type="radio"] {
+  display: none;
+}
+
+/* Custom radio label styling */
+.radio-label {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 30px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect for the labels */
+.radio-label:hover {
+  background-color: #f0f0f0;
+  border-color: #007bff;
+}
+
+/* When the radio input is selected, apply active styles */
+input[type="radio"]:checked + .radio-label {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+
 footer {
   background: #ff6700;
   color: white;
