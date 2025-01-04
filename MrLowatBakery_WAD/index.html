@@ -402,12 +402,16 @@ function navigateToCategory(categoryName) {
     });
 }
 
-// Function to display a specific category in the middle section
 function showCategory(category) {
+    // Get the category data
     const items = categories[category.toLowerCase()] || [];
+    
+    // Select the middle section
     const middleSection = document.querySelector('.middle-section');
+    
+    // Replace the middle section content with the selected category items
     middleSection.innerHTML = `
-        <h2>${category.charAt(0).toUpperCase() + category.slice(1)}s</h2>
+        <h2>${category.charAt(0).toUpperCase() + category.slice(1)}</h2>
         <div class="category-list">
             ${items.map(item => `
                 <div class="category-item">
@@ -415,15 +419,17 @@ function showCategory(category) {
                     <div class="category-details">
                         <h3>${item.name}</h3>
                         <p>${item.description}</p>
+                        <p><strong>Price: $${item.price}</strong></p>
                     </div>
-                    <button class="customize-btn" onclick="addToCart('${item.name}', '${item.image}', '${item.description}')">
-                        <i class="fas fa-plus"></i>
+                    <button class="customize-btn" onclick="addToCart('${item.name}', '${item.image}', '${item.description}', ${item.price})">
+                        <i class="fas fa-plus"></i> Add to Cart
                     </button>
                 </div>
             `).join('')}
         </div>
     `;
 }
+
 
 // Function to add an item to the cart and update the right section
 function addToCart(name, image, description) {
@@ -444,26 +450,46 @@ function addToCart(name, image, description) {
     cartSection.appendChild(cartItem);
 }
 
-/// Function to search categories
 function searchCategories() {
-    const input = document.getElementById('categorySearchInput');
-    const filter = input.value.toLowerCase(); // Get the search input and convert to lowercase
-    const dropdown = document.getElementById('menu-category-dropdown'); // Select the category dropdown
-    const buttons = dropdown.getElementsByTagName('button'); // Get all category buttons
+    const input = document.getElementById('categorySearchInput').value.toLowerCase();
+    const middleSection = document.querySelector('.middle-section');
+    middleSection.innerHTML = ''; // Clear the current content
 
-    // Loop through all category buttons
-    for (let i = 0; i < buttons.length; i++) {
-        const button = buttons[i];
-        const textValue = button.textContent || button.innerText; // Get the text content of the button
+    // Filter and display matching categories
+    for (const category in categories) {
+        const items = categories[category].filter(item => 
+            item.name.toLowerCase().includes(input) || 
+            item.description.toLowerCase().includes(input)
+        );
 
-        // Show or hide the button based on the search result
-        if (textValue.toLowerCase().indexOf(filter) > -1) {
-            button.style.display = ''; // Show the button if it matches
-        } else {
-            button.style.display = 'none'; // Hide the button if it doesn't match
+        if (items.length > 0) {
+            middleSection.innerHTML += `
+                <h2>${category.charAt(0).toUpperCase() + category.slice(1)}</h2>
+                <div class="category-list">
+                    ${items.map(item => `
+                        <div class="category-item">
+                            <img src="${item.image}" alt="${item.name}" class="category-image">
+                            <div class="category-details">
+                                <h3>${item.name}</h3>
+                                <p>${item.description}</p>
+                                <p><strong>Price: $${item.price.toFixed(2)}</strong></p>
+                            </div>
+                            <button class="customize-btn" onclick="addToCart('${item.name}', '${item.image}', '${item.description}', ${item.price})">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
         }
     }
+
+    // If no results, display a message
+    if (!middleSection.innerHTML) {
+        middleSection.innerHTML = `<h2>No items match your search.</h2>`;
+    }
 }
+
 
 </script>
 
