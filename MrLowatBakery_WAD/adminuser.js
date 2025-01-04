@@ -3,10 +3,8 @@ const members = [
     id: 1,
     name: "John Doe",
     email: "john.doe@example.com",
-    gender: "Male",
     phone: "123-456-7890",
     address: "123 Main Street",
-    dob: "1990-05-20",
     orders: [
       { orderId: "A001", item: "Cake", quantity: 2, price: "$20", status: "Completed" },
       { orderId: "A002", item: "Pastry", quantity: 1, price: "$5", status: "Pending" }
@@ -16,10 +14,8 @@ const members = [
     id: 2,
     name: "Jane Smith",
     email: "jane.smith@example.com",
-    gender: "Female",
     phone: "987-654-3210",
     address: "456 Elm Street",
-    dob: "1992-08-15",
     orders: [
       { orderId: "B001", item: "Cupcake", quantity: 3, price: "$15", status: "Completed" },
       { orderId: "B002", item: "Donut", quantity: 5, price: "$10", status: "Shipped" }
@@ -51,10 +47,8 @@ function showMemberDetails(id) {
   detailsContent.innerHTML = `
     <p><strong>Name:</strong> ${member.name}</p>
     <p><strong>Email:</strong> ${member.email}</p>
-    <p><strong>Gender:</strong> ${member.gender}</p>
     <p><strong>Phone:</strong> ${member.phone}</p>
     <p><strong>Address:</strong> ${member.address}</p>
-    <p><strong>Date of Birth:</strong> ${member.dob}</p>
   `;
 
   // Show order history
