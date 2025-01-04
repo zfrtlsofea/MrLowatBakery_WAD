@@ -11,9 +11,9 @@
 <body>
 <header>
     <h1>Mr. Lowat Bakery</h1>
-    <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Search for categories...">
-        <div class="dropdown" id="categoryDropdown"></div>
+    <!-- Search Bar for Categories -->
+    <div class="search-bar">
+        <input type="text" id="categorySearchInput" placeholder="Search for categories..." onkeyup="searchCategories()">
     </div>
     <div class="icon-links">
         <a href="homepage.html">
@@ -51,7 +51,6 @@
         </div>
         <button class="nav-btn" onclick="location.href='cart.html'"><i class="fas fa-shopping-cart"></i> Cart</button>
         <button class="nav-btn" onclick="location.href='orderhistory.html'"><i class="fas fa-receipt"></i> My Orders</button>
-        <button class="nav-btn" onclick="location.href='index.html'"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
 
     <!-- Middle Section -->
@@ -132,6 +131,7 @@
         </div>
     </div>
 
+
     <!-- Right Section -->
     <div class="right-section">
         <h2>Real-Time Cart</h2>
@@ -142,8 +142,11 @@
             <h4>Total:</h4>
             <p id="right-cart-total">$0.00</p>
         </div>
-        <button class="checkout-btn" onclick="window.location.href='cart.html'">Proceed to Checkout</button>
+        <!-- Checkout Button -->
+        <button class="checkout-btn" onclick="location.href='cart.html'">Proceed to Checkout</button>
     </div>
+
+
 
     <!-- About Us Popup -->
     <div class="popup-overlay" id="about-us-popup">
@@ -325,7 +328,7 @@
             { name: "8 Inch Brownies (Nuts)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg" , price: 48}
         ],
         burnedCheesecake: [
-            { name: "Classic Burned Cheesecake", description: "Rich and creamy cheesecake with a caramelized top.", image: "images/burnt_cheesecake_6inch.jpg", price: 40},
+            { name: "Classic Burned Cheesecake", description: "Rich and creamy cheesecake with a caramelized top.", image: "images/burnt_cheesecake_6inch.jpg", price: 40 },
             { name: "Custom Design Classic Burned Cheesecake", description: "Design your own cheesecake with a caramelized top.", image: "images/burnt_cheesecake_6inch.jpg", price: 55 }
         ],
         promotion: [
@@ -360,47 +363,153 @@
         });
     }
 
-    // Function to display a specific category in the middle section
     function showCategory(category) {
-        const items = categories[category.toLowerCase()] || [];
         const middleSection = document.querySelector('.middle-section');
+        const items = categories[category.toLowerCase()] || [];
+
+        // Clear and populate middle section
         middleSection.innerHTML = `
-            <h2>${category.charAt(0).toUpperCase() + category.slice(1)}s</h2>
+            <h2>${category.charAt(0).toUpperCase() + category.slice(1)}</h2>
             <div class="category-list">
-                ${items.map(item => `
-                    <div class="category-item">
-                        <img src="${item.image}" alt="${item.name}" class="category-image">
-                        <div class="category-details">
-                            <h3>${item.name}</h3>
-                            <p>${item.description}</p>
+                ${items.length > 0
+                    ? items.map(item => `
+                        <div class="category-item">
+                            <img src="${item.image}" alt="${item.name}" class="category-image">
+                            <div class="category-details">
+                                <h3>${item.name}</h3>
+                                <p>${item.description}</p>
+                                <p><strong>Price: $${item.price.toFixed(2)}</strong></p>
+                            </div>
+                            <button class="customize-btn" onclick="addToCart('${item.name}', '${item.image}', '${item.description}', ${item.price})">
+                                <i class="fas fa-plus"></i>
+                            </button>
                         </div>
-                        <button class="customize-btn" onclick="addToCart('${item.name}', '${item.image}', '${item.description}')">
-                            <i class="fas fa-plus"></i>
-                        </button>
+                    `).join('')
+                    : '<p>No items available in this category.</p>'
+                }
+            </div>
+        `;
+    }
+
+
+
+
+        // Add item to cart
+        function addToCart(itemName, itemImage = '', itemDescription = '', itemPrice = 10.00) {
+            const cartItemsContainer = document.getElementById('right-cart-items');
+            const cartTotalElement = document.getElementById('right-cart-total');
+
+            // Check if the item already exists in the cart
+            let existingItem = cartItemsContainer.querySelector(`[data-item-name="${itemName}"]`);
+            if (existingItem) {
+                // Update quantity
+                const quantityElement = existingItem.querySelector('.item-quantity');
+                let quantity = parseInt(quantityElement.textContent);
+                quantity++;
+                quantityElement.textContent = quantity;
+
+                // Update price
+                const itemPriceElement = existingItem.querySelector('.item-price');
+                let updatedPrice = quantity * itemPrice;
+                itemPriceElement.textContent = `$${updatedPrice.toFixed(2)}`;
+            } else {
+                // Create new cart item
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.setAttribute('data-item-name', itemName);
+                cartItem.innerHTML = `
+                    <img src="${itemImage}" alt="${itemName}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <h3>${itemName}</h3>
+                        <p>${itemDescription}</p>
+                        <p>Price: <span class="item-price">$${itemPrice.toFixed(2)}</span></p>
+                        <p>Quantity: <span class="item-quantity">1</span></p>
                     </div>
-                `).join('')}
-            </div>
-        `;
+                    <button class="remove-btn" onclick="removeFromCart('${itemName}', ${itemPrice})">Remove</button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            }
+
+            // Update total price
+            updateCartTotal(itemPrice);
+        }
+
+        // Remove item from cart
+        function removeFromCart(itemName, itemPrice) {
+            const cartItemsContainer = document.getElementById('right-cart-items');
+            const cartItem = cartItemsContainer.querySelector(`[data-item-name="${itemName}"]`);
+            if (cartItem) {
+                const quantityElement = cartItem.querySelector('.item-quantity');
+                let quantity = parseInt(quantityElement.textContent);
+
+                if (quantity > 1) {
+                    // Decrease quantity
+                    quantity--;
+                    quantityElement.textContent = quantity;
+
+                    // Update price
+                    const itemPriceElement = cartItem.querySelector('.item-price');
+                    let updatedPrice = quantity * itemPrice;
+                    itemPriceElement.textContent = `$${updatedPrice.toFixed(2)}`;
+                } else {
+                    // Remove item if quantity is 1
+                    cartItem.remove();
+                }
+
+                // Update total price
+                updateCartTotal(-itemPrice);
+            }
+        }
+
+        // Update total price
+        function updateCartTotal(change) {
+            const cartTotalElement = document.getElementById('right-cart-total');
+            let currentTotal = parseFloat(cartTotalElement.textContent.replace('$', '')) || 0;
+            let newTotal = currentTotal + change;
+            cartTotalElement.textContent = `$${newTotal.toFixed(2)}`;
+        }
+
+
+    function searchCategories() {
+        const input = document.getElementById('categorySearchInput').value.toLowerCase();
+        const middleSection = document.querySelector('.middle-section');
+        middleSection.innerHTML = ''; // Clear the current content
+
+        // Filter and display matching categories
+        for (const category in categories) {
+            const items = categories[category].filter(item =>
+                item.name.toLowerCase().includes(input) ||
+                item.description.toLowerCase().includes(input)
+            );
+
+            if (items.length > 0) {
+                middleSection.innerHTML += `
+                    <h2>${category.charAt(0).toUpperCase() + category.slice(1)}</h2>
+                    <div class="category-list">
+                        ${items.map(item => `
+                            <div class="category-item">
+                                <img src="${item.image}" alt="${item.name}" class="category-image">
+                                <div class="category-details">
+                                    <h3>${item.name}</h3>
+                                    <p>${item.description}</p>
+                                    <p><strong>Price: $${item.price.toFixed(2)}</strong></p>
+                                </div>
+                                <button class="customize-btn" onclick="addToCart('${item.name}', '${item.image}', '${item.description}', ${item.price})">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+
+        // If no results, display a message
+        if (!middleSection.innerHTML) {
+            middleSection.innerHTML = `<h2>No items match your search.</h2>`;
+        }
     }
 
-    // Function to add an item to the cart and update the right section
-    function addToCart(name, image, description) {
-        const cartSection = document.getElementById('cartSection');
-
-        // Create a new cart item element
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('cart-item');
-        cartItem.innerHTML = `
-            <img src="${image}" alt="${name}" class="cart-item-image">
-            <div class="cart-item-details">
-                <h3>${name}</h3>
-                <p>${description}</p>
-            </div>
-        `;
-
-        // Append the cart item to the cart section
-        cartSection.appendChild(cartItem);
-    }
 
     </script>
 
