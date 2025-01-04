@@ -20,7 +20,7 @@ function validateRegisterForm(e) {
       errorMessages.push('Please enter a valid email address.');
   }
 
-// Password validation
+// Password validation (6-8 characters long, contain at least one uppercase letter, one numeric digit, one special character, and no spaces)
 const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?=\S+$).{6,8}$/;
 if (!passwordRegex.test(password)) {
     errorMessages.push('Password must be 6-8 characters long, contain at least one uppercase letter, one numeric digit, one special character, and no spaces.');
