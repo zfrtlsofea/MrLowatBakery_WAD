@@ -431,24 +431,81 @@ function showCategory(category) {
 }
 
 
-// Function to add an item to the cart and update the right section
-function addToCart(name, image, description) {
-    const cartSection = document.getElementById('cartSection');
+    // Add item to cart
+    function addToCart(itemName, itemImage = '', itemDescription = '', itemPrice = 10.00) {
+        const cartItemsContainer = document.getElementById('right-cart-items');
+        const cartTotalElement = document.getElementById('right-cart-total');
 
-    // Create a new cart item element
-    const cartItem = document.createElement('div');
-    cartItem.classList.add('cart-item');
-    cartItem.innerHTML = `
-        <img src="${image}" alt="${name}" class="cart-item-image">
-        <div class="cart-item-details">
-            <h3>${name}</h3>
-            <p>${description}</p>
-        </div>
-    `;
+        // Check if the item already exists in the cart
+        let existingItem = cartItemsContainer.querySelector(`[data-item-name="${itemName}"]`);
+        if (existingItem) {
+            // Update quantity
+            const quantityElement = existingItem.querySelector('.item-quantity');
+            let quantity = parseInt(quantityElement.textContent);
+            quantity++;
+            quantityElement.textContent = quantity;
 
-    // Append the cart item to the cart section
-    cartSection.appendChild(cartItem);
-}
+            // Update price
+            const itemPriceElement = existingItem.querySelector('.item-price');
+            let updatedPrice = quantity * itemPrice;
+            itemPriceElement.textContent = `$${updatedPrice.toFixed(2)}`;
+        } else {
+            // Create new cart item
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.setAttribute('data-item-name', itemName);
+            cartItem.innerHTML = `
+                <img src="${itemImage}" alt="${itemName}" class="cart-item-image">
+                <div class="cart-item-details">
+                    <h3>${itemName}</h3>
+                    <p>${itemDescription}</p>
+                    <p>Price: <span class="item-price">$${itemPrice.toFixed(2)}</span></p>
+                    <p>Quantity: <span class="item-quantity">1</span></p>
+                </div>
+                <button class="remove-btn" onclick="removeFromCart('${itemName}', ${itemPrice})">Remove</button>
+            `;
+            cartItemsContainer.appendChild(cartItem);
+        }
+
+        // Update total price
+        updateCartTotal(itemPrice);
+    }
+
+    // Remove item from cart
+    function removeFromCart(itemName, itemPrice) {
+        const cartItemsContainer = document.getElementById('right-cart-items');
+        const cartItem = cartItemsContainer.querySelector(`[data-item-name="${itemName}"]`);
+        if (cartItem) {
+            const quantityElement = cartItem.querySelector('.item-quantity');
+            let quantity = parseInt(quantityElement.textContent);
+
+            if (quantity > 1) {
+                // Decrease quantity
+                quantity--;
+                quantityElement.textContent = quantity;
+
+                // Update price
+                const itemPriceElement = cartItem.querySelector('.item-price');
+                let updatedPrice = quantity * itemPrice;
+                itemPriceElement.textContent = `$${updatedPrice.toFixed(2)}`;
+            } else {
+                // Remove item if quantity is 1
+                cartItem.remove();
+            }
+
+            // Update total price
+            updateCartTotal(-itemPrice);
+        }
+    }
+
+    // Update total price
+    function updateCartTotal(change) {
+        const cartTotalElement = document.getElementById('right-cart-total');
+        let currentTotal = parseFloat(cartTotalElement.textContent.replace('$', '')) || 0;
+        let newTotal = currentTotal + change;
+        cartTotalElement.textContent = `$${newTotal.toFixed(2)}`;
+    }
+
 
 function searchCategories() {
     const input = document.getElementById('categorySearchInput').value.toLowerCase();
