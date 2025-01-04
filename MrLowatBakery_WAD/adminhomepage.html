@@ -259,12 +259,14 @@
         </script>
 
 
-        <!-- Products Section (Initially hidden) -->
+        <!-- Products Section -->
         <div class="products-content section-content" style="display: none;">
             <h2 class="section-title">Products</h2>
             <p>Manage bakery products here.</p>
-            <div id="products-container"></div><!-- Manage Products Button -->
+
+            <!-- Manage Products Button -->
             <button id="manage-products-btn">Manage Products</button>
+
             <!-- Product Management Section -->
             <div id="product-management-section" style="display: none;">
                 <h2>Manage Products</h2>
@@ -290,7 +292,6 @@
                     <label for="product-category">Category:</label>
                     <select id="product-category" required>
                         <option value="" disabled selected>Select category</option>
-                        <!-- Categories will be added dynamically -->
                     </select>
 
                     <label for="product-image">Product Image:</label>
@@ -314,106 +315,41 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- Example row -->
-                    <tr>
-                        <td>1</td>
-                        <td>Chocolate Cake</td>
-                        <td>$15.00</td>
-                        <td>20</td>
-                        <td>Cake</td>
-                        <td><img src="path/to/image.jpg" alt="Chocolate Cake" class="product-image"></td>
-                        <td>
-                            <button class="edit-btn" data-id="1">Edit</button>
-                            <button class="delete-btn" data-id="1">Delete</button>
-                        </td>
-                    </tr>
+                    <!-- Dynamically added rows -->
                     </tbody>
                 </table>
             </div>
         </div>
 
         <script>
-            // Get references to the button and section
-            const manageProductsBtn = document.getElementById('manage-products-btn');
-            const productManagementSection = document.getElementById('product-management-section');
-            const addCategoryForm = document.getElementById('add-category-form');
-            const newCategoryInput = document.getElementById('new-category-name');
-            const productCategorySelect = document.getElementById('product-category');
+            // Initial Data Structure
+            const data = {
+                cake: [],
+                cupcake: [],
+                tart: [],
+                brownies: [],
+                burnedcheesecake: [],
+                specialpromotion: [],
+            };
 
-            // Toggle visibility when the button is clicked
-            manageProductsBtn.addEventListener('click', () => {
-                const isVisible = productManagementSection.style.display === 'block';
-                productManagementSection.style.display = isVisible ? 'none' : 'block';
+            // Elements
+            const manageProductsBtn = document.getElementById("manage-products-btn");
+            const productManagementSection = document.getElementById("product-management-section");
+            const productCategorySelect = document.getElementById("product-category");
+            const addCategoryForm = document.getElementById("add-category-form");
+            const newCategoryInput = document.getElementById("new-category-name");
+            const productForm = document.getElementById("product-form");
+            const productTableBody = document.getElementById("product-table").querySelector("tbody");
+
+            // Toggle Management Section
+            manageProductsBtn.addEventListener("click", () => {
+                const isVisible = productManagementSection.style.display === "block";
+                productManagementSection.style.display = isVisible ? "none" : "block";
             });
 
-            // data for products, categorized by type
-            const data = {
-        cake: [
-            { name: "Tiered Sponge Cake (Vanilla)", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg", price: 70},
-            { name: "Tiered Sponge Cake (Chocolate)", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg", price: 70 },
-            { name: "Tiered Sponge Cake (Red Velvet)", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg", price: 70 },
-            { name: "Tiered Sponge Cake (Pandan)", description: "A beautifully layered sponge cake, perfect for any celebration.", image: "images/tiered_sponge_cake.jpg", price: 70 },
-            { name: "Apam @ Moist Cake (Vanilla)", description: "Soft, moist cake with a traditional touch.", image: "images/apam_cake.jpg", price: 30 },
-            { name: "Apam @ Moist Cake (Chocolate)", description: "Soft, moist cake with a traditional touch.", image: "images/apam_cake.jpg", price: 30 },
-            { name: "Apam @ Moist Cake (Red Velvet)", description: "Soft, moist cake with a traditional touch.", image: "images/apam_cake.jpg", price: 30 },
-            { name: "Apam @ Moist Cake (Pandan)", description: "Soft, moist cake with a traditional touch.", image: "images/apam_cake.jpg", price: 30 },
-            { name: "Bite Size Cake (Vanilla)", description: "Small, flavorful cakes for bite-sized enjoyment.", image: "images/bite_size_cake.jpg", price: 35 },
-            { name: "Bite Size Cake (Chocolate)", description: "Small, flavorful cakes for bite-sized enjoyment.", image: "images/bite_size_cake.jpg", price: 35 },
-            { name: "Bite Size Cake (Red Velvet)", description: "Small, flavorful cakes for bite-sized enjoyment.", image: "images/bite_size_cake.jpg", price: 35 },
-            { name: "Bite Size Cake (Pandan)", description: "Small, flavorful cakes for bite-sized enjoyment.", image: "images/bite_size_cake.jpg", price: 35 },
-            { name: "Sponge Cake Simple Decoration (Vanilla)", description: "Classic sponge cake with a simple and elegant decoration.", image: "images/simple_sponge_cake.jpg", price: 42 },
-            { name: "Sponge Cake Simple Decoration (Chocolate)", description: "Classic sponge cake with a simple and elegant decoration.", image: "images/simple_sponge_cake.jpg", price: 42 },
-            { name: "Sponge Cake Simple Decoration (Red Velvet)", description: "Classic sponge cake with a simple and elegant decoration.", image: "images/simple_sponge_cake.jpg", price: 42 },
-            { name: "Sponge Cake Simple Decoration (Pandan)", description: "Classic sponge cake with a simple and elegant decoration.", image: "images/simple_sponge_cake.jpg", price: 42 }
-        ],
-        cupcake: [
-            { name: "Mini Cupcakes 16 pieces (Vanilla)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_16.jpg", price: 30 },
-            { name: "Mini Cupcakes 16 pieces (Chocolate)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_16.jpg", price: 30 },
-            { name: "Mini Cupcakes 16 pieces (Red Velvet)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_16.jpg", price: 30 },
-            { name: "Mini Cupcakes 16 pieces (Pandan)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_16.jpg", price: 30 },
-            { name: "Mini Size Cupcakes 25 pieces (Vanilla)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_25.jpg", price: 40 },
-            { name: "Mini Size Cupcakes 25 pieces (Chocolate)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_25.jpg", price: 40 },
-            { name: "Mini Size Cupcakes 25 pieces (Red Velvet)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_25.jpg", price: 40 },
-            { name: "Mini Size Cupcakes 25 pieces (Pandan)", description: "Delicious cupcakes with amazing designs.", image: "images/mini_cupcakes_25.jpg", price: 40 },
-            { name: "Normal Cupcakes 16 pieces (Vanilla)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes.jpg", price: 48 },
-            { name: "Normal Cupcakes 16 pieces (Chocolate)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes.jpg", price: 48 },
-            { name: "Normal Cupcakes 16 pieces (Red Velvet)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes.jpg", price: 48 },
-            { name: "Normal Cupcakes 16 pieces (Pandan)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes.jpg", price: 48},
-            { name: "Normal Size Cupcakes 25 pieces (Vanilla)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes_25.jpg", price: 60.80 },
-            { name: "Normal Size Cupcakes 25 pieces (Chocolate)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes_25.jpg", price: 60.80 },
-            { name: "Normal Size Cupcakes 25 pieces (Red Velvet)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes_25.jpg", price: 60.80 },
-            { name: "Normal Size Cupcakes 25 pieces (Pandan)", description: "Delicious cupcakes with amazing designs.", image: "images/normal_cupcakes_25.jpg", price: 60.80 }
-        ],
-        tart: [
-            { name: "Mini Cheese Tart (Original)", description: "Choose your favorite flavor with different topping options.", image: "images/mini_cheese_tart.jpg", price: 43},
-            { name: "Mini Cheese Tart (Nutella)", description: "Choose your favorite flavor with different topping options.", image: "images/mini_cheese_tart.jpg", price: 43 },
-            { name: "Mini Cheese Tart (Cadbury)", description: "Choose your favorite flavor with different topping options.", image: "images/mini_cheese_tart.jpg", price: 43 },
-            { name: "Mini Cheese Tart (Mix and Match)", description: "Choose your favorite flavor and mix and match different toppings.", image: "images/mini_cheese_tart.jpg", price: 43 },
-            { name: "Giant Cheese Tart (6 inch - Original)", description: "Includes mini tarts.", image: "images/giant_cheese_tart.jpg", price: 58 },
-            { name: "Giant Cheese Tart (6 inch - Nutella)", description: "Includes mini tarts.", image: "images/giant_cheese_tart.jpg", price: 58 },
-            { name: "Giant Cheese Tart (7 inch - Cadbury)", description: "Includes mini tarts.", image: "images/giant_cheese_tart_7inch.jpg", price: 68 },
-            { name: "Giant Cheese Tart (7 inch - Original)", description: "Includes mini tarts.", image: "images/giant_cheese_tart_7inch.jpg", price: 68 }
-        ],
-        brownies: [
-            { name: "6 Inch Brownies (Chocolate)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_6inch.jpg", price: 25 },
-            { name: "6 Inch Brownies (Nutella)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_6inch.jpg", price: 27 },
-            { name: "6 Inch Brownies (Cream Cheese)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_6inch.jpg", price: 30 },
-            { name: "6 Inch Brownies (Nuts)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_6inch.jpg", price: 32 },
-            { name: "8 Inch Brownies (Chocolate)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg", price: 35 },
-            { name: "8 Inch Brownies (Nutella)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg", price: 38 },
-            { name: "8 Inch Brownies (Cream Cheese)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg", price: 45 },
-            { name: "8 Inch Brownies (Nuts)", description: "Various topping choices and can add on your own deco/topper.", image: "images/brownies_8inch.jpg" , price: 48}
-        ],
-        burnedCheesecake: [
-            { name: "Classic Burned Cheesecake", description: "Rich and creamy cheesecake with a caramelized top.", image: "images/burnt_cheesecake_6inch.jpg", price: 40},
-            { name: "Custom Design Classic Burned Cheesecake", description: "Design your own cheesecake with a caramelized top.", image: "images/burnt_cheesecake_6inch.jpg", price: 55 }
-        ]
-        };
-
-
-            // Function to display categories in the dropdown
-            function showCategories() {
-                productCategorySelect.innerHTML = '<option value="" disabled selected>Select category</option>'; // Clear existing options
+            // Populate Categories
+            function populateCategories() {
+                productCategorySelect.innerHTML = '<option value="" disabled selected>Select category</option>';
                 for (const category in data) {
                     const option = document.createElement("option");
                     option.value = category;
@@ -422,111 +358,61 @@
                 }
             }
 
-            // Function to display products
-            function showProducts() {
-                const productsContainer = document.getElementById("products-container");
-                productsContainer.innerHTML = ""; // Clear previous content
-                productsContainer.classList.add("center-content"); // Add centering class
-
-                for (const [category, items] of Object.entries(data)) {
-                    // Create category container
-                    const categoryContainer = document.createElement("div");
-                    categoryContainer.classList.add("category-container");
-
-                    // Create category header
-                    const categoryHeader = document.createElement("div");
-                    categoryHeader.classList.add("category-header");
-                    categoryHeader.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-                    categoryContainer.appendChild(categoryHeader);
-
-                    // Create items container
-                    const itemsContainer = document.createElement("div");
-                    itemsContainer.classList.add("items-container");
-
-                    items.forEach((item, index) => {
-                        // Create item card
-                        const itemCard = document.createElement("div");
-                        itemCard.classList.add("item-card");
-
-                        // Image preview and upload
-                        const itemImage = document.createElement("img");
-                        itemImage.src = item.image;
-                        itemImage.alt = item.name;
-                        itemCard.appendChild(itemImage);
-
-                        // Editable name
-                        const nameLabel = document.createElement("label");
-                        nameLabel.textContent = "Name:";
-                        itemCard.appendChild(nameLabel);
-
-                        const nameInput = document.createElement("input");
-                        nameInput.type = "text";
-                        nameInput.value = item.name;
-                        nameInput.oninput = () => (item.name = nameInput.value);
-                        itemCard.appendChild(nameInput);
-
-                        // Editable description
-                        const descriptionLabel = document.createElement("label");
-                        descriptionLabel.textContent = "Description:";
-                        itemCard.appendChild(descriptionLabel);
-
-                        const descriptionInput = document.createElement("textarea");
-                        descriptionInput.value = item.description;
-                        descriptionInput.oninput = () => (item.description = descriptionInput.value);
-                        itemCard.appendChild(descriptionInput);
-
-                        // Editable price
-                        const priceLabel = document.createElement("label");
-                        priceLabel.textContent = "Price (RM):";
-                        itemCard.appendChild(priceLabel);
-
-                        const priceInput = document.createElement("input");
-                        priceInput.type = "number";
-                        priceInput.step = "0.01";
-                        priceInput.value = item.price;
-                        priceInput.oninput = () => (item.price = parseFloat(priceInput.value));
-                        itemCard.appendChild(priceInput);
-
-                        // Add delete button functionality
-                        const deleteButton = document.createElement("button");
-                        deleteButton.classList.add("delete-btn");
-                        deleteButton.textContent = "Delete";
-                        deleteButton.addEventListener("click", () => {
-                            // Remove item from the category array
-                            data[category].splice(index, 1);
-                            showProducts(); // Re-render products after deletion
-                        });
-                        itemCard.appendChild(deleteButton);
-
-                        // Add item card to items container
-                        itemsContainer.appendChild(itemCard);
-                    });
-
-                    // Add items container to category container
-                    categoryContainer.appendChild(itemsContainer);
-                    productsContainer.appendChild(categoryContainer);
+            // Add New Category
+            addCategoryForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const categoryName = newCategoryInput.value.trim().toLowerCase();
+                if (!data[categoryName]) {
+                    data[categoryName] = [];
+                    populateCategories();
                 }
-            }
-
-            // Function to add a new category
-            addCategoryForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const newCategoryName = newCategoryInput.value.trim().toLowerCase();
-                if (newCategoryName && !data[newCategoryName]) {
-                    data[newCategoryName] = []; // Create new empty category
-                    showCategories(); // Re-render categories
-                    showProducts(); // Re-render products with new category
-                } else {
-                    alert('Category name must be unique and non-empty!');
-                }
-                newCategoryInput.value = ''; // Clear the input field
+                newCategoryInput.value = "";
             });
 
-            // Call showProducts and showCategories functions to load initial data
-            showCategories();
-            showProducts();
-        </script>
+            // Add New Product
+            productForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const productName = document.getElementById("product-name").value.trim();
+                const productPrice = parseFloat(document.getElementById("product-price").value);
+                const productStock = parseInt(document.getElementById("product-stock").value, 10);
+                const productCategory = document.getElementById("product-category").value;
+                const productImage = document.getElementById("product-image").files[0]?.name || "placeholder.jpg";
 
+                if (productName && productCategory && !isNaN(productPrice) && !isNaN(productStock)) {
+                    const newProduct = { name: productName, price: productPrice, stock: productStock, image: productImage };
+                    data[productCategory].push(newProduct);
+                    renderProductTable();
+                    productForm.reset();
+                }
+            });
+
+            // Render Product Table
+            function renderProductTable() {
+                productTableBody.innerHTML = "";
+                Object.entries(data).forEach(([category, products]) => {
+                    products.forEach((product, index) => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${product.name}</td>
+                            <td>${product.price}</td>
+                            <td>${product.stock}</td>
+                            <td>${category.charAt(0).toUpperCase() + category.slice(1)}</td>
+                            <td><img src="${product.image}" alt="${product.name}" width="50"></td>
+                            <td>
+                                <button class="edit-btn">Edit</button>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        `;
+                        productTableBody.appendChild(row);
+                    });
+                });
+            }
+
+            // Initialize
+            populateCategories();
+            renderProductTable();
+        </script>
 
 
         <!-- Users Section (Initially hidden) -->
