@@ -1,3 +1,4 @@
+<!-- TOK UI REGISTER, D PAKE -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,74 +71,41 @@
             document.getElementById(popupId).style.display = 'none';
         }
   </script>
-  <main>
-    <form id="registerForm">
-      <h1>Register</h1>
-      <p>Create a new account to start ordering.</p>
-      
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Your email" required>
-      </div>
+ <main>
+  <form action="register.php" method="POST">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" placeholder="Your Name" required><br>
 
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" placeholder="Your username" required>
-      </div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
 
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="Your password" required>
-      </div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Your Password" required>
 
-      <div class="form-group">
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
-      </div>
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Your Password" required>
 
-      <div class="form-group">
-        <label for="gender" class="form-label">Gender:</label>
-        <div class="radio-group">
-          <input type="radio" name="gender" id="m" value="male">
-          <label for="m" class="radio-label">Male</label>
-          <input type="radio" name="gender" id="f" value="female">
-          <label for="f" class="radio-label">Female</label>
-        </div>
-      </div>
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" placeholder="Your Address" required>
 
-      <div class="form-group">
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" placeholder="Your address" required>
-      </div>
+      <label for="tel">Telephone:</label>
+      <input type="tel" id="tel" name="tel" placeholder="0123456789" required pattern="[0-9]{10}" maxlength="10">
 
-      <div class="form-group">
-        <label for="tel">Telephone:</label>
-        <input type="tel" id="tel" name="tel" placeholder="01X - 000 0000" required pattern="[0-9]{3}-[0-9]{7}">
-      </div>
+      <input type="checkbox" id="terms" name="terms" required>
+      <label for="terms">I agree to the terms and conditions.</label>
+    </div>
 
-      <div class="form-group">
-        <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob" name="dob" required>
-      </div>
+    <div class="form-button">
+      <button type="submit">Register</button>
+      <button type="reset">Clear</button>
+    </div>
+  </form>
+  <p>Already have an account? <a href="login.html">Login here</a>.</p>
+</main>
 
-      <div class="form-group">
-        <input type="checkbox" id="terms" name="terms" required>
-        <label for="terms">I agree to the terms and conditions.</a></label>
-      </div>
-
-      <div class="form-button">
-        <button type="submit">Register</button>
-      </div>
-
-    </form>
-    <p>Already have an account? <a href="login.html">Login here</a>.</p>
-  </main>
-
-  <footer>
-    <p>&copy; 2024 Mr. Lowat Bakery. All rights reserved.</p>
-  </footer>
-
-  <script src="scripts.js"></script>
-
+<footer>
+  <p>&copy; 2024 Mr. Lowat Bakery. All rights reserved.</p>
+</footer>
 </body>
 </html>

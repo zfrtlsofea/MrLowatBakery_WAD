@@ -1,4 +1,6 @@
 <?php
+// TOK SIKTAUK PAKE SIK TAPI BIAR JAK
+
 include_once 'connection.php'; // Include database connection file
 
 $error = ''; // Initialize error as blank
